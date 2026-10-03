@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,753 +9,1142 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         brand: {
                             50: '#f0fdf4',
+                            100: '#dcfce7',
+                            400: '#4ade80',
                             500: '#22c55e',
                             600: '#16a34a',
                             700: '#15803d',
                             900: '#14532d',
+                            950: '#052e16'
                         },
-                        dark: {
-                            bg: '#0b1329',
-                            card: '#162238',
-                            panel: '#1e2d4a',
-                            border: '#2e4166',
-                            text: '#f8fafc',
-                            muted: '#94a3b8'
-                        }
+                        cyanBrand: {
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                            600: '#0891b2'
+                        },
+                        darkBg: '#0b0f17',
+                        cardBg: '#111827',
+                        panelBg: '#1f2937'
                     }
                 }
             }
-        }
+        };
     </script>
     <style>
-        body { background-color: #0b1329; color: #f8fafc; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #162238; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-        .stage-step.active { border-color: #22c55e; background-color: rgba(34, 197, 94, 0.12); color: #22c55e; }
-        .stage-step.completed { border-color: #3b82f6; color: #60a5fa; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0b0f17; }
+        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #4b5563; }
+        
+        /* Pulse & Glow Effects */
+        .glow-emerald { box-shadow: 0 0 15px rgba(34, 197, 94, 0.25); }
+        .glow-cyan { box-shadow: 0 0 15px rgba(6, 182, 212, 0.25); }
+        .tour-highlight {
+            position: relative;
+            z-index: 40 !important;
+            box-shadow: 0 0 0 4px #22c55e, 0 0 25px rgba(34, 197, 94, 0.6) !important;
+            border-radius: 0.5rem;
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .print-only { display: block !important; }
+            .print-card { background: white !important; border: 1px solid #ccc !important; color: black !important; box-shadow: none !important; }
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col custom-scrollbar">
+<body class="bg-darkBg text-slate-100 min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
 
-    <!-- Header Navigation -->
-    <header class="border-b border-dark-border bg-dark-card py-3.5 px-6 sticky top-0 z-50 flex flex-wrap justify-between items-center shadow-md">
-        <div class="flex items-center space-x-3">
-            <div class="bg-gradient-to-tr from-emerald-600 to-teal-500 p-2.5 rounded-xl text-white shadow-lg">
-                <i class="fa-solid fa-dna text-xl"></i>
-            </div>
-            <div>
-                <h1 class="text-lg font-bold text-white flex items-center gap-2">
-                    Pharm Discovery Studio <span class="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/30">Target → Preclinical</span>
-                </h1>
-                <p class="text-xs text-dark-muted">End-to-End Campaign Simulator across Body Systems & Target Classes</p>
-            </div>
-        </div>
-
-        <!-- Campaign Stats & Budget Display -->
-        <div class="flex items-center space-x-4 text-xs mt-2 sm:mt-0">
-            <div class="bg-dark-panel px-3 py-1.5 rounded-lg border border-dark-border flex items-center gap-2">
-                <i class="fa-solid fa-coins text-amber-400"></i>
+    <!-- Top Header & Navigation -->
+    <header class="bg-cardBg border-b border-slate-800 sticky top-0 z-30 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-cyanBrand-500 flex items-center justify-center text-white font-bold text-xl shadow-lg glow-emerald">
+                    <i class="fa-solid fa-vial-circle-check"></i>
+                </div>
                 <div>
-                    <span class="text-dark-muted block text-[10px]">REMAINING BUDGET</span>
-                    <span id="budget-display" class="font-bold text-emerald-400">$8.50M / $10.0M</span>
+                    <h1 class="font-extrabold text-lg tracking-tight text-white flex items-center gap-2">
+                        Pharm Discovery Studio
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-brand-950 text-brand-400 border border-brand-700/50 font-semibold">v1.0 Preclinical Pro</span>
+                    </h1>
+                    <p class="text-xs text-slate-400 hidden sm:block">Target to IND Preclinical Campaign Simulator</p>
                 </div>
             </div>
-            <div class="bg-dark-panel px-3 py-1.5 rounded-lg border border-dark-border flex items-center gap-2">
-                <i class="fa-solid fa-star text-sky-400"></i>
-                <div>
-                    <span class="text-dark-muted block text-[10px]">CAMPAIGN SCORE</span>
-                    <span id="score-display" class="font-bold text-sky-400">88 / 100</span>
-                </div>
+
+            <!-- Campaign Selector Dropdown -->
+            <div id="tour-campaign-select" class="flex items-center space-x-3">
+                <label for="campaignSelect" class="text-xs font-medium text-slate-400 hidden md:block">Active Campaign:</label>
+                <select id="campaignSelect" onchange="switchCampaign(this.value)" class="bg-slate-800 text-sm border border-slate-700 text-emerald-400 font-semibold rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-500 focus:outline-none cursor-pointer">
+                    <option value="cns">🧠 CNS: GABA-A / GPCR Modulator</option>
+                    <option value="oncology">🎗️ Oncology: EGFR Kinase Inhibitor</option>
+                    <option value="cardio">🫀 Cardio/Renal: SGLT2 Transporter</option>
+                    <option value="immuno">🛡️ Immunology: JAK1 Selective Kinase</option>
+                    <option value="infectious">🦠 Infectious: Viral Protease Inhibitor</option>
+                </select>
+
+                <button onclick="startGuidedTour()" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs px-3 py-2 rounded-lg flex items-center gap-1.5 transition font-medium">
+                    <i class="fa-solid fa-route text-brand-400"></i>
+                    <span class="hidden sm:inline">Guided Tour</span>
+                </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Studio Grid -->
-    <main class="flex-1 p-6 max-w-7xl w-full mx-auto space-y-6">
+    <!-- Pipeline Stage Stepper Bar -->
+    <div class="bg-slate-900/80 border-b border-slate-800 py-3 backdrop-blur no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="tour-pipeline-stepper" class="grid grid-cols-5 gap-2 text-xs font-medium text-center">
+                <button onclick="goToStage(1)" id="step-btn-1" class="p-2.5 rounded-lg border border-brand-500/50 bg-brand-950/60 text-brand-400 flex flex-col sm:flex-row items-center justify-center gap-2 transition hover:bg-slate-800">
+                    <span class="w-6 h-6 rounded-full bg-brand-500 text-slate-950 font-bold flex items-center justify-center text-xs">1</span>
+                    <span class="truncate">Target ID</span>
+                </button>
+                <button onclick="goToStage(2)" id="step-btn-2" class="p-2.5 rounded-lg border border-slate-800 bg-slate-800/40 text-slate-400 flex flex-col sm:flex-row items-center justify-center gap-2 transition hover:bg-slate-800">
+                    <span class="w-6 h-6 rounded-full bg-slate-700 text-slate-300 font-bold flex items-center justify-center text-xs">2</span>
+                    <span class="truncate">HTS & Triaging</span>
+                </button>
+                <button onclick="goToStage(3)" id="step-btn-3" class="p-2.5 rounded-lg border border-slate-800 bg-slate-800/40 text-slate-400 flex flex-col sm:flex-row items-center justify-center gap-2 transition hover:bg-slate-800">
+                    <span class="w-6 h-6 rounded-full bg-slate-700 text-slate-300 font-bold flex items-center justify-center text-xs">3</span>
+                    <span class="truncate">Hit-to-Lead</span>
+                </button>
+                <button onclick="goToStage(4)" id="step-btn-4" class="p-2.5 rounded-lg border border-slate-800 bg-slate-800/40 text-slate-400 flex flex-col sm:flex-row items-center justify-center gap-2 transition hover:bg-slate-800">
+                    <span class="w-6 h-6 rounded-full bg-slate-700 text-slate-300 font-bold flex items-center justify-center text-xs">4</span>
+                    <span class="truncate">DMPK Lead Opt</span>
+                </button>
+                <button onclick="goToStage(5)" id="step-btn-5" class="p-2.5 rounded-lg border border-slate-800 bg-slate-800/40 text-slate-400 flex flex-col sm:flex-row items-center justify-center gap-2 transition hover:bg-slate-800">
+                    <span class="w-6 h-6 rounded-full bg-slate-700 text-slate-300 font-bold flex items-center justify-center text-xs">5</span>
+                    <span class="truncate">Safety & IND</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
-        <!-- 1. CAMPAIGN SELECTOR BAR -->
-        <section class="bg-dark-card border border-dark-border rounded-xl p-4 shadow-sm">
-            <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3 mb-3">
-                <h2 class="text-xs uppercase font-bold tracking-wider text-emerald-400 flex items-center gap-2">
-                    <i class="fa-solid fa-crosshairs"></i> Select Active Drug Discovery Campaign
-                </h2>
-                <span id="target-class-badge" class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded border border-slate-700 w-fit">
-                    Target Class: GPCR / Ion Channel
-                </span>
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+        <!-- Campaign Summary Info Box -->
+        <div class="bg-cardBg border border-slate-800 rounded-xl p-4 shadow-xl flex flex-col lg:flex-row lg:items-center justify-between gap-4 no-print">
+            <div class="space-y-1">
+                <div class="flex items-center gap-2">
+                    <span id="campaign-badge" class="px-2.5 py-0.5 rounded-md text-xs font-semibold bg-purple-950 text-purple-300 border border-purple-800">CNS System</span>
+                    <h2 id="campaign-title" class="text-lg font-bold text-white">GABA-A Receptor Positive Allosteric Modulator</h2>
+                </div>
+                <p id="campaign-desc" class="text-xs text-slate-300 leading-relaxed max-w-3xl">
+                    Targeting central GABA_A ion channels for treatment-resistant anxiety. Requires high Blood-Brain Barrier permeability (LogBB > 0) and low efflux while keeping hERG liability minimal.
+                </p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs" id="campaign-buttons-container">
-                <!-- Buttons populated dynamically by JS -->
+            <div id="tour-kpi-bar" class="flex items-center gap-4 border-t lg:border-t-0 lg:border-l border-slate-800 pt-3 lg:pt-0 lg:pl-6 text-xs">
+                <div>
+                    <span class="text-slate-400 block text-[10px] uppercase tracking-wider font-semibold">R&D Budget spent</span>
+                    <span id="budget-display" class="font-mono text-emerald-400 font-bold text-sm">0.45M / 3.50M</span>
+                </div>
+                <div class="h-8 w-px bg-slate-800"></div>
+                <div>
+                    <span class="text-slate-400 block text-[10px] uppercase tracking-wider font-semibold">Quality Index</span>
+                    <span id="quality-display" class="font-mono text-cyanBrand-400 font-bold text-sm">88.5 / 100</span>
+                </div>
+                <div class="h-8 w-px bg-slate-800"></div>
+                <div>
+                    <span class="text-slate-400 block text-[10px] uppercase tracking-wider font-semibold">Timeline</span>
+                    <span id="timeline-display" class="font-mono text-amber-400 font-bold text-sm">Month 4 / 36</span>
+                </div>
             </div>
-        </section>
-
-        <!-- 2. STAGE PROGRESS WORKFLOW BAR -->
-        <nav class="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs">
-            <button onclick="gotoStage(1)" id="step-btn-1" class="stage-step active p-3 rounded-lg border border-dark-border bg-dark-card flex flex-col items-center gap-1 transition-all">
-                <span class="font-bold">Stage 1</span>
-                <span class="text-[11px] text-dark-muted">Target ID & Validation</span>
-            </button>
-            <button onclick="gotoStage(2)" id="step-btn-2" class="stage-step p-3 rounded-lg border border-dark-border bg-dark-card flex flex-col items-center gap-1 transition-all">
-                <span class="font-bold">Stage 2</span>
-                <span class="text-[11px] text-dark-muted">HTS & Hit Triaging</span>
-            </button>
-            <button onclick="gotoStage(3)" id="step-btn-3" class="stage-step p-3 rounded-lg border border-dark-border bg-dark-card flex flex-col items-center gap-1 transition-all">
-                <span class="font-bold">Stage 3</span>
-                <span class="text-[11px] text-dark-muted">Hit-to-Lead (H2L)</span>
-            </button>
-            <button onclick="gotoStage(4)" id="step-btn-4" class="stage-step p-3 rounded-lg border border-dark-border bg-dark-card flex flex-col items-center gap-1 transition-all">
-                <span class="font-bold">Stage 4</span>
-                <span class="text-[11px] text-dark-muted">Lead Optimization & DMPK</span>
-            </button>
-            <button onclick="gotoStage(5)" id="step-btn-5" class="stage-step p-3 rounded-lg border border-dark-border bg-dark-card flex flex-col items-center gap-1 transition-all">
-                <span class="font-bold">Stage 5</span>
-                <span class="text-[11px] text-dark-muted">Preclinical Safety & IND</span>
-            </button>
-        </nav>
-
-        <!-- 3. DYNAMIC STAGE VIEWS -->
+        </div>
 
         <!-- STAGE 1: TARGET IDENTIFICATION & VALIDATION -->
-        <section id="stage-view-1" class="space-y-6">
+        <div id="stage-1" class="stage-container space-y-6">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Target Overview -->
-                <div class="bg-dark-card border border-dark-border rounded-xl p-5 space-y-4">
-                    <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-bullseye text-emerald-400"></i> Target Biological Profile
-                    </h3>
-                    <div id="target-bio-summary" class="text-xs space-y-2 text-dark-muted">
-                        <!-- Dynamic text -->
+                <!-- Target Validation Selector & Controls -->
+                <div class="lg:col-span-2 bg-cardBg border border-slate-800 rounded-xl p-5 space-y-5">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-microscope text-brand-400 text-lg"></i>
+                            <h3 class="font-bold text-white text-base">Stage 1: Target Identification & Validation Assays</h3>
+                        </div>
+                        <button onclick="showInfoModal('targetValidation')" class="text-xs text-brand-400 hover:text-brand-300 flex items-center gap-1">
+                            <i class="fa-solid fa-circle-info"></i> What is this?
+                        </button>
                     </div>
 
-                    <div class="border-t border-dark-border pt-3 space-y-2 text-xs">
-                        <span class="text-slate-300 font-semibold block">Druggability Assessment</span>
-                        <div class="flex justify-between text-dark-muted">
-                            <span>Binding Pocket Volume:</span>
-                            <span id="pocket-vol" class="text-emerald-400 font-mono">820 Å³</span>
+                    <p class="text-xs text-slate-300">
+                        Select validation orthogonal experiments to confirm biological essentiality, direct target engagement, and disease linkage before launching screen assays.
+                    </p>
+
+                    <!-- Validation Tech Options -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <label class="p-3 border border-slate-700 bg-slate-800/60 rounded-lg cursor-pointer hover:border-brand-500 transition flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-semibold text-xs text-white">CRISPR KO Screen</span>
+                                    <input type="checkbox" id="assay-crispr" checked onchange="updateStage1()" class="rounded bg-slate-900 border-slate-700 text-brand-500 focus:ring-0">
+                                </div>
+                                <p class="text-[11px] text-slate-400">Assesses genetic dependency and cellular cell-death phenotypes.</p>
+                            </div>
+                            <span class="text-[10px] text-brand-400 font-mono mt-3">75k • 1.5 Months</span>
+                        </label>
+
+                        <label class="p-3 border border-slate-700 bg-slate-800/60 rounded-lg cursor-pointer hover:border-brand-500 transition flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-semibold text-xs text-white">CETSA Melt Curve</span>
+                                    <input type="checkbox" id="assay-cetsa" checked onchange="updateStage1()" class="rounded bg-slate-900 border-slate-700 text-brand-500 focus:ring-0">
+                                </div>
+                                <p class="text-[11px] text-slate-400">Cellular Thermal Shift Assay measures target protein thermal stabilization.</p>
+                            </div>
+                            <span class="text-[10px] text-brand-400 font-mono mt-3">50k • 1 Month</span>
+                        </label>
+
+                        <label class="p-3 border border-slate-700 bg-slate-800/60 rounded-lg cursor-pointer hover:border-brand-500 transition flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-semibold text-xs text-white">Phosphoproteomics</span>
+                                    <input type="checkbox" id="assay-phospho" onchange="updateStage1()" class="rounded bg-slate-900 border-slate-700 text-brand-500 focus:ring-0">
+                                </div>
+                                <p class="text-[11px] text-slate-400">Maps downstream pathway signal cascade alterations.</p>
+                            </div>
+                            <span class="text-[10px] text-brand-400 font-mono mt-3">100k • 2 Months</span>
+                        </label>
+                    </div>
+
+                    <!-- Stage 1 Charts -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                            <h4 class="text-xs font-semibold text-slate-300 mb-2 flex items-center justify-between">
+                                CRISPR Dependency Score (CERES)
+                                <button onclick="showInfoModal('ceres')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-circle-question"></i></button>
+                            </h4>
+                            <div class="h-44">
+                                <canvas id="crisprChart"></canvas>
+                            </div>
                         </div>
-                        <div class="flex justify-between text-dark-muted">
-                            <span>Disease Linkage Score:</span>
-                            <span id="disease-score" class="text-sky-400 font-mono">0.89 (High)</span>
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                            <h4 class="text-xs font-semibold text-slate-300 mb-2 flex items-center justify-between">
+                                CETSA Thermal Stability (T_m Shift)
+                                <button onclick="showInfoModal('cetsa')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-circle-question"></i></button>
+                            </h4>
+                            <div class="h-44">
+                                <canvas id="cetsaChart"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Validation Methodology & Interactive Execution -->
-                <div class="lg:col-span-2 bg-dark-card border border-dark-border rounded-xl p-5 space-y-4">
-                    <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-vial-circle-check text-emerald-400"></i> Biological Target Validation Strategy
-                    </h3>
-                    <p class="text-xs text-dark-muted">Select validation methods to confirm target engagement and therapeutic disease hypothesis before initiating expensive HTS screening.</p>
+                <!-- Target Scorecard & Druggability Assessment -->
+                <div class="bg-cardBg border border-slate-800 rounded-xl p-5 space-y-4 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <h3 class="font-bold text-white text-base">Target Druggability Index</h3>
+                            <span id="target-druggability-badge" class="px-2 py-0.5 rounded text-xs font-bold bg-brand-950 text-brand-400 border border-brand-700">Tier 1 Target</span>
+                        </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-                        <label class="bg-dark-panel p-3 rounded-lg border border-dark-border cursor-pointer hover:border-emerald-500/50 block space-y-1">
-                            <input type="checkbox" id="val-crispr" checked onchange="updateStage1()" class="accent-emerald-500 mr-1.5">
-                            <span class="font-semibold text-white">CRISPR Knockout / KD</span>
-                            <p class="text-[10px] text-dark-muted">Confirm phenotype reversal upon gene deletion ($0.3M)</p>
-                        </label>
-                        <label class="bg-dark-panel p-3 rounded-lg border border-dark-border cursor-pointer hover:border-emerald-500/50 block space-y-1">
-                            <input type="checkbox" id="val-cetsa" checked onchange="updateStage1()" class="accent-emerald-500 mr-1.5">
-                            <span class="font-semibold text-white">CETSA Binding Assay</span>
-                            <p class="text-[10px] text-dark-muted">Cellular Thermal Shift Assay for physical target engagement ($0.2M)</p>
-                        </label>
-                        <label class="bg-dark-panel p-3 rounded-lg border border-dark-border cursor-pointer hover:border-emerald-500/50 block space-y-1">
-                            <input type="checkbox" id="val-phospho" onchange="updateStage1()" class="accent-emerald-500 mr-1.5">
-                            <span class="font-semibold text-white">Phosphoproteomics</span>
-                            <p class="text-[10px] text-dark-muted">Map downstream signaling cascade modulation ($0.4M)</p>
-                        </label>
+                        <div class="space-y-3 text-xs">
+                            <div>
+                                <div class="flex justify-between text-slate-300 mb-1">
+                                    <span>Biological Validation Score</span>
+                                    <span id="s1-bio-val" class="font-mono text-emerald-400">88%</span>
+                                </div>
+                                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                                    <div id="s1-bio-bar" class="bg-brand-500 h-full w-[88%] transition-all duration-500"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-slate-300 mb-1">
+                                    <span>Structural Pocket Tractability</span>
+                                    <span id="s1-struct-score" class="font-mono text-cyanBrand-400">92%</span>
+                                </div>
+                                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                                    <div id="s1-struct-bar" class="bg-cyanBrand-500 h-full w-[92%] transition-all duration-500"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-slate-300 mb-1">
+                                    <span>Safety / Off-Target Homology Risk</span>
+                                    <span id="s1-safety-risk" class="font-mono text-amber-400">Low (12%)</span>
+                                </div>
+                                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                                    <div id="s1-safety-bar" class="bg-amber-500 h-full w-[12%] transition-all duration-500"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg text-xs space-y-2">
+                            <span class="font-semibold text-slate-200 block border-b border-slate-800 pb-1">Target Profile Key Insights:</span>
+                            <p id="s1-insights" class="text-slate-400 leading-relaxed text-[11px]">
+                                Strong target validation confirmed via high CERES knock-out cell lethality and clear thermal shift (\Delta T_m = +5.2^\circ\text{C}). Pocket geometry shows well-defined lipophilic sub-pockets.
+                            </p>
+                        </div>
                     </div>
 
-                    <div class="bg-slate-900/80 p-4 rounded-xl border border-dark-border">
-                        <h4 class="text-xs font-bold text-slate-300 mb-2">Target Validation Confidence Index</h4>
-                        <div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden mb-2">
-                            <div id="val-confidence-bar" class="bg-gradient-to-r from-amber-500 to-emerald-500 h-full w-[75%] transition-all"></div>
-                        </div>
-                        <div class="flex justify-between text-[11px]">
-                            <span id="val-confidence-text" class="text-emerald-400 font-bold">Confidence Score: 85%</span>
-                            <span class="text-dark-muted">Threshold for Gate Approval: 70%</span>
-                        </div>
-                    </div>
-
-                    <button onclick="advanceGate(1)" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg text-xs transition-colors flex items-center justify-center gap-2">
-                        Complete Stage 1 & Gate Approval <i class="fa-solid fa-arrow-right"></i>
+                    <button onclick="goToStage(2)" class="w-full py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-lg shadow-lg glow-emerald text-xs transition flex items-center justify-center gap-2">
+                        <span>Advance to HTS Campaign (Stage 2)</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- STAGE 2: HIGH-THROUGHPUT SCREENING & HIT TRIAGING -->
-        <section id="stage-view-2" class="space-y-6 hidden">
+        <!-- STAGE 2: HIGH-THROUGHPUT SCREENING & TRIAGING -->
+        <div id="stage-2" class="stage-container space-y-6 hidden">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- HTS Assay Campaign Setup -->
-                <div class="bg-dark-card border border-dark-border rounded-xl p-5 space-y-4">
-                    <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-microscope text-emerald-400"></i> Primary HTS Campaign Controls
-                    </h3>
+                <div class="lg:col-span-2 bg-cardBg border border-slate-800 rounded-xl p-5 space-y-5">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-filter text-cyanBrand-400 text-lg"></i>
+                            <h3 class="font-bold text-white text-base">Stage 2: High-Throughput Screening (HTS) & Triaging</h3>
+                        </div>
+                        <button onclick="showInfoModal('zFactor')" class="text-xs text-cyanBrand-400 hover:text-cyanBrand-300 flex items-center gap-1">
+                            <i class="fa-solid fa-circle-info"></i> Z'-Factor Guide
+                        </button>
+                    </div>
 
-                    <div class="space-y-3 text-xs">
+                    <!-- Controls for HTS Assay Parameters -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-slate-900 p-4 rounded-xl border border-slate-800">
                         <div>
-                            <label class="text-dark-muted block mb-1">Assay Technology Platform</label>
-                            <select id="hts-assay-tech" onchange="updateStage2()" class="w-full bg-dark-panel border border-dark-border rounded px-2.5 py-2 text-white">
-                                <option value="trfret">TR-FRET Homogeneous Assay (High Precision)</option>
-                                <option value="celltiter">CellTiter-Glo Luminescent Phenotypic Assay</option>
+                            <label for="hts-assay-type" class="text-xs font-medium text-slate-300 block mb-1">Primary Screening Assay</label>
+                            <select id="hts-assay-type" onchange="updateStage2()" class="w-full bg-slate-800 border border-slate-700 text-xs text-white rounded-lg p-2">
+                                <option value="tr-fret">TR-FRET Biochemical Assay</option>
+                                <option value="celltiter">CellTiter-Glo Viability Assay</option>
                                 <option value="fp">Fluorescence Polarization (FP)</option>
                             </select>
                         </div>
 
                         <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="text-dark-muted">Hit Cutoff Threshold (% Inhibition)</span>
-                                <span id="val-hit-cutoff" class="text-emerald-400 font-mono font-bold">50%</span>
-                            </div>
-                            <input type="range" id="input-hit-cutoff" min="30" max="80" value="50" oninput="updateStage2()" class="w-full accent-emerald-500">
-                        </div>
-
-                        <div class="bg-dark-panel p-3 rounded-lg border border-dark-border space-y-2">
-                            <span class="text-slate-300 font-semibold block">Hit Triaging Filters</span>
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" id="filter-pains" checked onchange="updateStage2()" class="accent-emerald-500">
-                                <span>Filter PAINS (Pan-Assay Interference Compounds)</span>
-                            </label>
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" id="filter-aggregators" checked onchange="updateStage2()" class="accent-emerald-500">
-                                <span>Filter Colloidal Aggregators (Triton X-100 Assay)</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- HTS Results & Z'-Factor Quality Control -->
-                <div class="lg:col-span-2 bg-dark-card border border-dark-border rounded-xl p-5 space-y-4">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-filter text-emerald-400"></i> HTS Campaign Screen Yield & Quality Control
-                        </h3>
-                        <span id="z-factor-badge" class="px-2.5 py-1 rounded text-xs font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                            Z' Factor: 0.78 (Excellent)
-                        </span>
-                    </div>
-
-                    <!-- Screen Stats Summary Grid -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center text-xs">
-                        <div class="bg-dark-panel p-3 rounded-xl border border-dark-border">
-                            <span class="text-dark-muted block">Library Screened</span>
-                            <span class="text-lg font-bold text-white font-mono">250,000</span>
-                        </div>
-                        <div class="bg-dark-panel p-3 rounded-xl border border-dark-border">
-                            <span class="text-dark-muted block">Primary Hits</span>
-                            <span id="res-primary-hits" class="text-lg font-bold text-amber-400 font-mono">1,240</span>
-                        </div>
-                        <div class="bg-dark-panel p-3 rounded-xl border border-dark-border">
-                            <span class="text-dark-muted block">Triaged Confirmed Hits</span>
-                            <span id="res-confirmed-hits" class="text-lg font-bold text-emerald-400 font-mono">185</span>
-                        </div>
-                        <div class="bg-dark-panel p-3 rounded-xl border border-dark-border">
-                            <span class="text-dark-muted block">Hit Rate %</span>
-                            <span id="res-hit-rate" class="text-lg font-bold text-sky-400 font-mono">0.07%</span>
-                        </div>
-                    </div>
-
-                    <!-- Dose-Response IC50 Chart Simulation -->
-                    <div class="bg-slate-900 p-4 rounded-xl border border-dark-border">
-                        <h4 class="text-xs font-bold text-slate-300 mb-2 flex justify-between">
-                            <span>Top Hit Series Dose-Response Curve Validation</span>
-                            <span id="top-hit-ic50" class="text-emerald-400 font-mono">Primary Hit IC50: 1.4 µM</span>
-                        </h4>
-                        <div class="relative h-44 w-full">
-                            <canvas id="ic50Chart"></canvas>
-                        </div>
-                    </div>
-
-                    <button onclick="advanceGate(2)" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg text-xs transition-colors flex items-center justify-center gap-2">
-                        Nominate Lead Chemical Series (Stage 2 Gate) <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- STAGE 3: HIT-TO-LEAD (H2L) & MEDICINAL CHEMISTRY -->
-        <section id="stage-view-3" class="space-y-6 hidden">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- MedChem Controls -->
-                <div class="bg-dark-card border border-dark-border rounded-xl p-5 space-y-4">
-                    <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-flask text-emerald-400"></i> Structure-Activity Relationship (SAR) Tuning
-                    </h3>
-
-                    <div class="space-y-3 text-xs">
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="text-dark-muted">Lipophilicity ($LogP$)</span>
-                                <span id="val-logp" class="text-emerald-400 font-mono font-bold">2.8</span>
-                            </div>
-                            <input type="range" id="input-logp" min="0.5" max="5.5" step="0.1" value="2.8" oninput="updateStage3()" class="w-full accent-emerald-500">
-                        </div>
-
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="text-dark-muted">Molecular Weight ($MW, \text{g/mol}$)</span>
-                                <span id="val-mw" class="text-emerald-400 font-mono font-bold">380</span>
-                            </div>
-                            <input type="range" id="input-mw" min="200" max="650" step="10" value="380" oninput="updateStage3()" class="w-full accent-emerald-500">
-                        </div>
-
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="text-dark-muted">Topological Polar Surface Area ($TPSA, \text{Å}^2$)</span>
-                                <span id="val-tpsa" class="text-emerald-400 font-mono font-bold">72</span>
-                            </div>
-                            <input type="range" id="input-tpsa" min="20" max="160" step="2" value="72" oninput="updateStage3()" class="w-full accent-emerald-500">
-                        </div>
-
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="text-dark-muted">H-Bond Donors / Acceptors</span>
-                                <span id="val-hbonds" class="text-emerald-400 font-mono font-bold">1 / 4</span>
-                            </div>
-                            <input type="range" id="input-hb-donor" min="0" max="6" value="1" oninput="updateStage3()" class="w-full accent-emerald-500">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Live Property Radar Chart & Body-System Constraint Analyzer -->
-                <div class="lg:col-span-2 bg-dark-card border border-dark-border rounded-xl p-5 space-y-4">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-chart-pie text-emerald-400"></i> Multi-Parameter Optimization (MPO) Profile
-                        </h3>
-                        <span id="mpo-score-badge" class="px-2.5 py-1 rounded text-xs font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                            MPO Score: 4.2 / 5.0
-                        </span>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Radar Chart -->
-                        <div class="bg-slate-900 p-3 rounded-xl border border-dark-border h-60 relative flex items-center justify-center">
-                            <canvas id="mpoRadarChart"></canvas>
-                        </div>
-
-                        <!-- System Constraint Feedback -->
-                        <div class="bg-slate-900 p-4 rounded-xl border border-dark-border space-y-3 text-xs">
-                            <h4 class="font-bold text-slate-200 border-b border-dark-border pb-1">Therapeutic Body System Rules</h4>
-                            <div id="system-rules-box" class="space-y-2 text-dark-muted">
-                                <!-- Dynamic Rules populated by JS based on campaign -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <button onclick="advanceGate(3)" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg text-xs transition-colors flex items-center justify-center gap-2">
-                        Select Lead Candidate Series for LO (Stage 3 Gate) <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- STAGE 4: LEAD OPTIMIZATION & IN VITRO/IN VIVO DMPK -->
-        <section id="stage-view-4" class="space-y-6 hidden">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- DMPK Parameters -->
-                <div class="bg-dark-card border border-dark-border rounded-xl p-5 space-y-4">
-                    <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-capsules text-emerald-400"></i> In Vitro DMPK Tuning
-                    </h3>
-
-                    <div class="space-y-3 text-xs">
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="text-dark-muted">Human Liver Microsomal $t_{1/2}$ (min)</span>
-                                <span id="val-dmpk-hl" class="text-emerald-400 font-mono font-bold">35 min</span>
-                            </div>
-                            <input type="range" id="input-dmpk-hl" min="5" max="180" step="5" value="35" oninput="updateStage4()" class="w-full accent-emerald-500">
-                        </div>
-
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="text-dark-muted">Caco-2 Permeability ($P_{app}, 10^{-6} \text{ cm/s}$)</span>
-                                <span id="val-dmpk-papp" class="text-emerald-400 font-mono font-bold">12.0</span>
-                            </div>
-                            <input type="range" id="input-dmpk-papp" min="1" max="30" step="0.5" value="12.0" oninput="updateStage4()" class="w-full accent-emerald-500">
-                        </div>
-
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="text-dark-muted">Plasma Free Fraction ($f_u$)</span>
-                                <span id="val-dmpk-fu" class="text-emerald-400 font-mono font-bold">0.08 (8%)</span>
-                            </div>
-                            <input type="range" id="input-dmpk-fu" min="0.005" max="0.30" step="0.005" value="0.08" oninput="updateStage4()" class="w-full accent-emerald-500">
-                        </div>
-
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="text-dark-muted">CYP3A4 Inhibition ($IC_{50}, \mu M$)</span>
-                                <span id="val-dmpk-cyp" class="text-emerald-400 font-mono font-bold">18.5 µM</span>
-                            </div>
-                            <input type="range" id="input-dmpk-cyp" min="0.5" max="50" step="0.5" value="18.5" oninput="updateStage4()" class="w-full accent-emerald-500">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Simulated In Vivo Oral Pharmacokinetics & Exposure Coverage -->
-                <div class="lg:col-span-2 bg-dark-card border border-dark-border rounded-xl p-5 space-y-4">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-chart-line text-emerald-400"></i> Simulated Oral Exposure Profile (Rat)
-                        </h3>
-                        <span id="pk-coverage-badge" class="px-2.5 py-1 rounded text-xs font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                            Target Coverage > EC90: 18 hours
-                        </span>
-                    </div>
-
-                    <!-- PK Curve Chart -->
-                    <div class="bg-slate-900 p-4 rounded-xl border border-dark-border">
-                        <div class="relative h-48 w-full">
-                            <canvas id="pkSimChart"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- Computed PK Metrics Grid -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center text-xs">
-                        <div class="bg-dark-panel p-3 rounded-xl border border-dark-border">
-                            <span class="text-dark-muted block">Oral Bioavailability (%F)</span>
-                            <span id="res-dmpk-f" class="text-lg font-bold text-emerald-400 font-mono">58%</span>
-                        </div>
-                        <div class="bg-dark-panel p-3 rounded-xl border border-dark-border">
-                            <span class="text-dark-muted block">Hepatic Clearance ($Cl_{hep}$)</span>
-                            <span id="res-dmpk-cl" class="text-lg font-bold text-white font-mono">18 mL/min/kg</span>
-                        </div>
-                        <div class="bg-dark-panel p-3 rounded-xl border border-dark-border">
-                            <span class="text-dark-muted block">Total $C_{max}$</span>
-                            <span id="res-dmpk-cmax" class="text-lg font-bold text-white font-mono">2.4 µM</span>
-                        </div>
-                        <div class="bg-dark-panel p-3 rounded-xl border border-dark-border">
-                            <span class="text-dark-muted block">Free $C_{max}$ ($f_u \cdot C_{max}$)</span>
-                            <span id="res-dmpk-freecmax" class="text-lg font-bold text-amber-400 font-mono">0.19 µM</span>
-                        </div>
-                    </div>
-
-                    <button onclick="advanceGate(4)" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg text-xs transition-colors flex items-center justify-center gap-2">
-                        Nominate Development Candidate for Safety Tox (Stage 4 Gate) <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- STAGE 5: PRECLINICAL SAFETY, TOXICOLOGY & CANDIDATE NOMINATION -->
-        <section id="stage-view-5" class="space-y-6 hidden">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Safety & Tox Controls -->
-                <div class="bg-dark-card border border-dark-border rounded-xl p-5 space-y-4">
-                    <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-shield-halved text-emerald-400"></i> Safety Pharmacology & Tox Parameters
-                    </h3>
-
-                    <div class="space-y-3 text-xs">
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="text-dark-muted">hERG $IC_{50}$ (Cardiac Patch Clamp)</span>
-                                <span id="val-tox-herg" class="text-amber-400 font-mono font-bold">14.5 µM</span>
-                            </div>
-                            <input type="range" id="input-tox-herg" min="0.5" max="50" step="0.5" value="14.5" oninput="updateStage5()" class="w-full accent-amber-500">
-                        </div>
-
-                        <div>
-                            <label class="text-dark-muted block mb-1">Ames Bacterial Mutagenicity Test</label>
-                            <select id="input-tox-ames" onchange="updateStage5()" class="w-full bg-dark-panel border border-dark-border rounded px-2.5 py-2 text-white">
-                                <option value="neg">Negative (Clean - Non-Mutagenic)</option>
-                                <option value="pos">Positive (Salmonella Mutagenic Flag)</option>
+                            <label for="hts-library-size" class="text-xs font-medium text-slate-300 block mb-1">Compound Library Size</label>
+                            <select id="hts-library-size" onchange="updateStage2()" class="w-full bg-slate-800 border border-slate-700 text-xs text-white rounded-lg p-2">
+                                <option value="50000">50,000 Focused Diversity</option>
+                                <option value="150000" selected>150,000 High-Diversity Set</option>
+                                <option value="300000">300,000 Extended Library</option>
                             </select>
                         </div>
 
                         <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="text-dark-muted">28-Day Rat NOAEL Dose (mg/kg/day)</span>
-                                <span id="val-tox-noael" class="text-sky-400 font-mono font-bold">150 mg/kg</span>
-                            </div>
-                            <input type="range" id="input-tox-noael" min="10" max="500" step="10" value="150" oninput="updateStage5()" class="w-full accent-sky-500">
+                            <label for="hts-cutoff" class="text-xs font-medium text-slate-300 block mb-1">Inhibition Cutoff Threshold</label>
+                            <select id="hts-cutoff" onchange="updateStage2()" class="w-full bg-slate-800 border border-slate-700 text-xs text-white rounded-lg p-2">
+                                <option value="30">> 30% Inhibition (Broad)</option>
+                                <option value="50" selected>> 50% Inhibition (Standard)</option>
+                                <option value="70">> 70% Inhibition (Strict)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Triaging Filters Checkboxes -->
+                    <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 space-y-3">
+                        <span class="text-xs font-bold text-slate-200 block border-b border-slate-800 pb-1">Hit Triaging & De-replication Filters:</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                            <label class="flex items-center gap-2 cursor-pointer text-slate-300">
+                                <input type="checkbox" id="filter-pains" checked onchange="updateStage2()" class="rounded bg-slate-900 border-slate-700 text-cyanBrand-500">
+                                <span>PAINS Filter <button onclick="showInfoModal('pains')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-circle-question"></i></button></span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer text-slate-300">
+                                <input type="checkbox" id="filter-agg" checked onchange="updateStage2()" class="rounded bg-slate-900 border-slate-700 text-cyanBrand-500">
+                                <span>Colloidal Aggregators Filter</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer text-slate-300">
+                                <input type="checkbox" id="filter-cytotox" checked onchange="updateStage2()" class="rounded bg-slate-900 border-slate-700 text-cyanBrand-500">
+                                <span>Counter-Screen Cytotoxicity</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- HTS Scatter Chart -->
+                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                        <h4 class="text-xs font-semibold text-slate-300 mb-2 flex items-center justify-between">
+                            HTS Scatter Scattergram (% Inhibition vs Compound Index)
+                            <span id="hts-zfactor-display" class="font-mono text-xs text-cyanBrand-400 font-bold">Z'-Factor = 0.78 (Excellent)</span>
+                        </h4>
+                        <div class="h-52">
+                            <canvas id="htsChart"></canvas>
                         </div>
                     </div>
                 </div>
 
-                <!-- Allometric Scaling & FIH Dose Engine -->
-                <div class="lg:col-span-2 bg-dark-card border border-dark-border rounded-xl p-5 space-y-4">
-                    <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-calculator text-emerald-400"></i> Human Allometric Scaling & IND Package Submission
-                    </h3>
+                <!-- Stage 2 Summary Metrics Card -->
+                <div class="bg-cardBg border border-slate-800 rounded-xl p-5 space-y-4 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <h3 class="font-bold text-white text-base border-b border-slate-800 pb-3">HTS Funnel Results</h3>
 
-                    <!-- Scaling Calculations -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs text-center">
-                        <div class="bg-dark-panel p-3 rounded-xl border border-dark-border">
-                            <span class="text-dark-muted block">Human Equivalent Dose (HED)</span>
-                            <span id="res-tox-hed" class="text-lg font-bold text-sky-400 font-mono">24.3 mg/kg</span>
+                        <div class="space-y-3 font-mono text-xs">
+                            <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
+                                <span class="text-slate-400">Primary Library Screened:</span>
+                                <span id="funnel-screened" class="text-white font-bold">150,000</span>
+                            </div>
+
+                            <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
+                                <span class="text-slate-400">Raw Primary Hits (>50%):</span>
+                                <span id="funnel-rawhits" class="text-amber-400 font-bold">1,840 (1.23%)</span>
+                            </div>
+
+                            <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
+                                <span class="text-slate-400">PAINS & Aggregators Removed:</span>
+                                <span id="funnel-artifacts" class="text-rose-400 font-bold">-1,220</span>
+                            </div>
+
+                            <div class="flex justify-between p-2.5 bg-brand-950/60 rounded-lg border border-brand-700/50">
+                                <span class="text-slate-300 font-sans font-semibold">Validated Confirmed Hits:</span>
+                                <span id="funnel-confirmed" class="text-brand-400 font-bold">620 Chemotypes</span>
+                            </div>
                         </div>
-                        <div class="bg-dark-panel p-3 rounded-xl border border-dark-border">
-                            <span class="text-dark-muted block">FIH Dose (10x Safety Factor)</span>
-                            <span id="res-tox-fih" class="text-lg font-bold text-amber-400 font-mono">146 mg (60kg adult)</span>
-                        </div>
-                        <div class="bg-dark-panel p-3 rounded-xl border border-dark-border">
-                            <span class="text-dark-muted block">Predicted Safety Margin</span>
-                            <span id="res-tox-margin" class="text-lg font-bold text-emerald-400 font-mono">32x</span>
+
+                        <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg text-xs space-y-2">
+                            <span class="font-semibold text-slate-200 block border-b border-slate-800 pb-1">Assay Quality Control Summary:</span>
+                            <p id="hts-summary-text" class="text-slate-400 text-[11px] leading-relaxed">
+                                Robust Z' > 0.70 provides excellent assay signal window separation. PAINS triage removed non-specific thiol-reactors and fluorescent interferences.
+                            </p>
                         </div>
                     </div>
 
-                    <!-- IND Status & Final Verdict -->
-                    <div id="ind-verdict-box" class="p-4 rounded-xl border border-emerald-500/30 bg-emerald-950/20 text-xs space-y-2">
-                        <!-- Dynamic IND decision filled by JS -->
-                    </div>
-
-                    <button onclick="finishCampaign()" class="w-full py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-lg text-xs transition-all shadow-lg flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-file-export"></i> Formally Submit IND Application to FDA
+                    <button onclick="goToStage(3)" class="w-full py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-lg shadow-lg glow-emerald text-xs transition flex items-center justify-center gap-2">
+                        <span>Advance to Hit-to-Lead Chemistry (Stage 3)</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
-        </section>
+        </div>
+
+        <!-- STAGE 3: HIT-TO-LEAD (H2L) MEDICINAL CHEMISTRY SANDBOX -->
+        <div id="stage-3" class="stage-container space-y-6 hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Structure Optimization Sliders -->
+                <div id="tour-stage3-sliders" class="lg:col-span-2 bg-cardBg border border-slate-800 rounded-xl p-5 space-y-5">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-flask-vial text-amber-400 text-lg"></i>
+                            <h3 class="font-bold text-white text-base">Stage 3: Hit-to-Lead Structure Parameter Tuning</h3>
+                        </div>
+                        <button onclick="showInfoModal('lipinski')" class="text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1">
+                            <i class="fa-solid fa-circle-info"></i> Lipinski Rule of 5 Info
+                        </button>
+                    </div>
+
+                    <p class="text-xs text-slate-300">
+                        Interactively modify chemical lead core descriptors. Observe real-time changes in binding affinity (IC_{50}), aqueous solubility, and Lipophilicity efficiency (LLE).
+                    </p>
+
+                    <!-- Sliders Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 bg-slate-900 p-4 rounded-xl border border-slate-800 text-xs">
+                        <!-- LogP Slider -->
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between font-medium">
+                                <span class="text-slate-200 flex items-center gap-1">
+                                    Lipophilicity (\text{Log}P)
+                                    <button onclick="showInfoModal('logp')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-circle-question"></i></button>
+                                </span>
+                                <span id="val-logp" class="font-mono text-brand-400 font-bold">2.80</span>
+                            </div>
+                            <input type="range" id="slider-logp" min="0.5" max="6.0" step="0.1" value="2.8" oninput="updateStage3()" class="w-full accent-brand-500 cursor-pointer">
+                            <div class="flex justify-between text-[10px] text-slate-500">
+                                <span>Hydrophilic (0.5)</span>
+                                <span>Ideal (2.0 - 3.5)</span>
+                                <span>Greasy (6.0)</span>
+                            </div>
+                        </div>
+
+                        <!-- Molecular Weight Slider -->
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between font-medium">
+                                <span class="text-slate-200 flex items-center gap-1">
+                                    Molecular Weight (\text{MW})
+                                    <button onclick="showInfoModal('mw')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-circle-question"></i></button>
+                                </span>
+                                <span id="val-mw" class="font-mono text-brand-400 font-bold">380 Da</span>
+                            </div>
+                            <input type="range" id="slider-mw" min="200" max="700" step="5" value="380" oninput="updateStage3()" class="w-full accent-brand-500 cursor-pointer">
+                            <div class="flex justify-between text-[10px] text-slate-500">
+                                <span>Small (200)</span>
+                                <span>Lipinski Cutoff (500)</span>
+                                <span>Large (700)</span>
+                            </div>
+                        </div>
+
+                        <!-- TPSA Slider -->
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between font-medium">
+                                <span class="text-slate-200 flex items-center gap-1">
+                                    Polar Surface Area (\text{TPSA})
+                                    <button onclick="showInfoModal('tpsa')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-circle-question"></i></button>
+                                </span>
+                                <span id="val-tpsa" class="font-mono text-cyanBrand-400 font-bold">75 Å²</span>
+                            </div>
+                            <input type="range" id="slider-tpsa" min="20" max="180" step="2" value="75" oninput="updateStage3()" class="w-full accent-cyanBrand-500 cursor-pointer">
+                            <div class="flex justify-between text-[10px] text-slate-500">
+                                <span>CNS Barrier (&lt;90)</span>
+                                <span>Oral Ideal (60-120)</span>
+                                <span>High (&gt;140)</span>
+                            </div>
+                        </div>
+
+                        <!-- Hydrogen Bond Donors / Acceptors -->
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between font-medium">
+                                <span class="text-slate-200 flex items-center gap-1">
+                                    H-Bond Donors / Acceptors
+                                    <button onclick="showInfoModal('hbd')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-circle-question"></i></button>
+                                </span>
+                                <span id="val-hbd" class="font-mono text-cyanBrand-400 font-bold">1 HBD / 4 HBA</span>
+                            </div>
+                            <input type="range" id="slider-hbd" min="0" max="5" step="1" value="1" oninput="updateStage3()" class="w-full accent-cyanBrand-500 cursor-pointer">
+                            <div class="flex justify-between text-[10px] text-slate-500">
+                                <span>0 Donors</span>
+                                <span>Ideal (&le;2)</span>
+                                <span>5 Donors</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4PL Dose Response Curve & Radar Chart -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                            <h4 class="text-xs font-semibold text-slate-300 mb-2 flex items-center justify-between">
+                                4PL Dose-Response IC_{50} Curve
+                                <span id="ic50-display-tag" class="font-mono text-xs text-brand-400 font-bold">IC_{50} = 18\text{ nM}</span>
+                            </h4>
+                            <div class="h-52">
+                                <canvas id="doseResponseChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div id="tour-radar-chart" class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                            <h4 class="text-xs font-semibold text-slate-300 mb-2 flex items-center justify-between">
+                                Multi-Parameter Optimization Radar
+                                <button onclick="showInfoModal('radarInfo')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-circle-question"></i></button>
+                            </h4>
+                            <div class="h-52">
+                                <canvas id="mpoRadarChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hit-to-Lead Calculated Metrics Side Column -->
+                <div class="bg-cardBg border border-slate-800 rounded-xl p-5 space-y-4 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <h3 class="font-bold text-white text-base border-b border-slate-800 pb-3">Lead Property Metrics</h3>
+
+                        <div class="space-y-3 font-mono text-xs">
+                            <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
+                                <span class="text-slate-400 font-sans">Target Potency (IC_{50}):</span>
+                                <span id="m-ic50" class="text-brand-400 font-bold">18 nM</span>
+                            </div>
+
+                            <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
+                                <span class="text-slate-400 font-sans">Aqueous Solubility (\mu\text{M}):</span>
+                                <span id="m-solubility" class="text-cyanBrand-400 font-bold">145 μM (High)</span>
+                            </div>
+
+                            <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
+                                <span class="text-slate-400 font-sans">Lipophilic Efficiency (LLE):</span>
+                                <span id="m-lle" class="text-emerald-400 font-bold">4.94 (Optimal)</span>
+                            </div>
+
+                            <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
+                                <span class="text-slate-400 font-sans">CNS MPO Score:</span>
+                                <span id="m-cnsmpo" class="text-purple-400 font-bold">5.2 / 6.0</span>
+                            </div>
+
+                            <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
+                                <span class="text-slate-400 font-sans">Lipinski Alert Status:</span>
+                                <span id="m-lipinski" class="text-emerald-400 font-bold">0 Violations</span>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg text-xs space-y-2">
+                            <span class="font-semibold text-slate-200 block border-b border-slate-800 pb-1">Medicinal Chemistry Assessment:</span>
+                            <p id="h2l-chem-feedback" class="text-slate-400 text-[11px] leading-relaxed">
+                                Excellent balance of nM potency with high LLE (>4.5). Hydrophilic surface area maintains high aqueous solubility without compromising passive membrane permeability.
+                            </p>
+                        </div>
+                    </div>
+
+                    <button onclick="goToStage(4)" class="w-full py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-lg shadow-lg glow-emerald text-xs transition flex items-center justify-center gap-2">
+                        <span>Advance to DMPK Lead Optimization (Stage 4)</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 4: LEAD OPTIMIZATION & DMPK SIMULATOR -->
+        <div id="stage-4" class="stage-container space-y-6 hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- DMPK In Vitro Assays & Controls -->
+                <div class="lg:col-span-2 bg-cardBg border border-slate-800 rounded-xl p-5 space-y-5">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-capsules text-cyanBrand-400 text-lg"></i>
+                            <h3 class="font-bold text-white text-base">Stage 4: ADME / Pharmacokinetics Simulator</h3>
+                        </div>
+                        <button onclick="showInfoModal('pkInfo')" class="text-xs text-cyanBrand-400 hover:text-cyanBrand-300 flex items-center gap-1">
+                            <i class="fa-solid fa-circle-info"></i> PK Parameters Explained
+                        </button>
+                    </div>
+
+                    <!-- DMPK Experimental Sliders -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-slate-900 p-4 rounded-xl border border-slate-800 text-xs">
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between font-medium">
+                                <span class="text-slate-300">Liver Microsomal t_{1/2}</span>
+                                <span id="val-t12" class="font-mono text-cyanBrand-400 font-bold">45 min</span>
+                            </div>
+                            <input type="range" id="slider-t12" min="10" max="180" step="5" value="45" oninput="updateStage4()" class="w-full accent-cyanBrand-500 cursor-pointer">
+                            <div class="flex justify-between text-[10px] text-slate-500">
+                                <span>Rapid (10m)</span>
+                                <span>Stable (180m)</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between font-medium">
+                                <span class="text-slate-300">Caco-2 P_{app} (\times 10^{-6})</span>
+                                <span id="val-papp" class="font-mono text-cyanBrand-400 font-bold">18.5</span>
+                            </div>
+                            <input type="range" id="slider-papp" min="1" max="50" step="1" value="18" oninput="updateStage4()" class="w-full accent-cyanBrand-500 cursor-pointer">
+                            <div class="flex justify-between text-[10px] text-slate-500">
+                                <span>Poor (&lt;2)</span>
+                                <span>High (&gt;15)</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between font-medium">
+                                <span class="text-slate-300">Unbound Fraction (f_u)</span>
+                                <span id="val-fu" class="font-mono text-cyanBrand-400 font-bold">8.5%</span>
+                            </div>
+                            <input type="range" id="slider-fu" min="0.5" max="30" step="0.5" value="8.5" oninput="updateStage4()" class="w-full accent-cyanBrand-500 cursor-pointer">
+                            <div class="flex justify-between text-[10px] text-slate-500">
+                                <span>High Bound (0.5%)</span>
+                                <span>Free (30%)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Oral PK Concentration Time Curve Chart -->
+                    <div id="tour-pk-chart" class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                        <h4 class="text-xs font-semibold text-slate-300 mb-2 flex items-center justify-between">
+                            In Vivo Oral Plasma Concentration-Time Profile (10 mg/kg Oral Dose)
+                            <span id="pk-bioavail-tag" class="font-mono text-xs text-brand-400 font-bold">Bioavailability %F = 68%</span>
+                        </h4>
+                        <div class="h-60">
+                            <canvas id="pkCurveChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 4 DMPK Summary -->
+                <div class="bg-cardBg border border-slate-800 rounded-xl p-5 space-y-4 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <h3 class="font-bold text-white text-base border-b border-slate-800 pb-3">DMPK Exposure Profile</h3>
+
+                        <div class="space-y-3 font-mono text-xs">
+                            <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
+                                <span class="text-slate-400 font-sans">Peak Concentration (C_{max}):</span>
+                                <span id="dmpk-cmax" class="text-white font-bold">420 ng/mL</span>
+                            </div>
+
+                            <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
+                                <span class="text-slate-400 font-sans">Total Exposure (AUC_{0-\infty}):</span>
+                                <span id="dmpk-auc" class="text-cyanBrand-400 font-bold">2,850 ng·h/mL</span>
+                            </div>
+
+                            <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
+                                <span class="text-slate-400 font-sans">Target Efficacy Coverage (C_{min} > EC_{90}):</span>
+                                <span id="dmpk-coverage" class="text-emerald-400 font-bold">24 Hours (QD Dosing)</span>
+                            </div>
+
+                            <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
+                                <span class="text-slate-400 font-sans">CYP3A4 Inhibition IC_{50}:</span>
+                                <span id="dmpk-cyp" class="text-amber-400 font-bold">> 25 μM (Low Risk)</span>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg text-xs space-y-2">
+                            <span class="font-semibold text-slate-200 block border-b border-slate-800 pb-1">DMPK Expert Assessment:</span>
+                            <p id="dmpk-feedback" class="text-slate-400 text-[11px] leading-relaxed">
+                                Adequate oral absorption and human hepatocyte clearance support once-daily (QD) clinical oral administration. Minimal risk of CYP metabolic drug-drug interactions.
+                            </p>
+                        </div>
+                    </div>
+
+                    <button onclick="goToStage(5)" class="w-full py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-lg shadow-lg glow-emerald text-xs transition flex items-center justify-center gap-2">
+                        <span>Advance to Safety & IND Nomination (Stage 5)</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 5: PRECLINICAL SAFETY, scaling & IND REPORT -->
+        <div id="stage-5" class="stage-container space-y-6 hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Preclinical Safety Assays Panel -->
+                <div class="lg:col-span-2 bg-cardBg border border-slate-800 rounded-xl p-5 space-y-5">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-rose-400 text-lg"></i>
+                            <h3 class="font-bold text-white text-base">Stage 5: Preclinical Safety & Toxicological Profiling</h3>
+                        </div>
+                        <button onclick="showInfoModal('safetyInfo')" class="text-xs text-rose-400 hover:text-rose-300 flex items-center gap-1">
+                            <i class="fa-solid fa-circle-info"></i> Tox Margins Guide
+                        </button>
+                    </div>
+
+                    <!-- Safety Assays Controls -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-900 p-4 rounded-xl border border-slate-800 text-xs">
+                        <!-- hERG Channel Margin Slider -->
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between font-medium">
+                                <span class="text-slate-200 flex items-center gap-1">
+                                    Cardiac hERG IC_{50}
+                                    <button onclick="showInfoModal('herg')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-circle-question"></i></button>
+                                </span>
+                                <span id="val-herg" class="font-mono text-emerald-400 font-bold">32.0 μM</span>
+                            </div>
+                            <input type="range" id="slider-herg" min="1" max="50" step="1" value="32" oninput="updateStage5()" class="w-full accent-emerald-500 cursor-pointer">
+                            <div class="flex justify-between text-[10px] text-slate-500">
+                                <span>High Risk (1μM)</span>
+                                <span>Safe (>10μM)</span>
+                            </div>
+                        </div>
+
+                        <!-- Rodent 28-day NOAEL Slider -->
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between font-medium">
+                                <span class="text-slate-200 flex items-center gap-1">
+                                    Rodent NOAEL Dose
+                                    <button onclick="showInfoModal('noael')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-circle-question"></i></button>
+                                </span>
+                                <span id="val-noael" class="font-mono text-emerald-400 font-bold">300 mg/kg</span>
+                            </div>
+                            <input type="range" id="slider-noael" min="10" max="1000" step="10" value="300" oninput="updateStage5()" class="w-full accent-emerald-500 cursor-pointer">
+                            <div class="flex justify-between text-[10px] text-slate-500">
+                                <span>Low (10 mg/kg)</span>
+                                <span>Clean (1000 mg/kg)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Genotoxicity In Vitro Battery -->
+                    <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 space-y-3">
+                        <span class="text-xs font-bold text-slate-200 block border-b border-slate-800 pb-1">Genotoxicity & Cytotoxicity Battery:</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                            <div class="flex items-center justify-between p-2.5 bg-slate-800/60 rounded-lg">
+                                <span>Ames Bacterial Mutagenicity Test:</span>
+                                <span id="genotox-ames" class="font-bold text-emerald-400 font-mono"><i class="fa-solid fa-circle-check"></i> Negative</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 bg-slate-800/60 rounded-lg">
+                                <span>In Vitro Micronucleus Assay:</span>
+                                <span id="genotox-micro" class="font-bold text-emerald-400 font-mono"><i class="fa-solid fa-circle-check"></i> Negative</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- hERG Action Potential & FIH Dose Display -->
+                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                        <h4 class="text-xs font-semibold text-slate-300 mb-2 flex items-center justify-between">
+                            Cardiac Action Potential Trace (hERG Safety Margin)
+                            <span id="herg-margin-tag" class="font-mono text-xs text-emerald-400 font-bold">Safety Margin: 1,770x (Optimal)</span>
+                        </h4>
+                        <div class="h-48">
+                            <canvas id="hergTraceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- First in Human Scaling & Report Trigger -->
+                <div class="bg-cardBg border border-slate-800 rounded-xl p-5 space-y-4 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <h3 class="font-bold text-white text-base border-b border-slate-800 pb-3">FIH Dose & Safety Factor</h3>
+
+                        <div class="space-y-3 font-mono text-xs">
+                            <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
+                                <span class="text-slate-400 font-sans">Human Equivalent Dose (HED):</span>
+                                <span id="fih-hed" class="text-white font-bold">48.6 mg/day</span>
+                            </div>
+
+                            <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
+                                <span class="text-slate-400 font-sans">Recommended Starting FIH Dose:</span>
+                                <span id="fih-start" class="text-brand-400 font-bold">5.0 mg (10x Safety Factor)</span>
+                            </div>
+
+                            <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
+                                <span class="text-slate-400 font-sans">Therapeutic Index (TI):</span>
+                                <span id="fih-ti" class="text-emerald-400 font-bold">16.5x</span>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg text-xs space-y-2">
+                            <span class="font-semibold text-slate-200 block border-b border-slate-800 pb-1">Safety Risk Summary:</span>
+                            <p id="safety-summary-text" class="text-slate-400 text-[11px] leading-relaxed">
+                                Wide safety margin observed over predicted therapeutic C_{max}. Clean genotoxicity profile and high NOAEL allow progression to formal GLP toxicology studies.
+                            </p>
+                        </div>
+                    </div>
+
+                    <button onclick="generateFinalReport()" class="w-full py-3 bg-gradient-to-r from-brand-600 to-cyanBrand-600 hover:from-brand-500 hover:to-cyanBrand-500 text-white font-extrabold rounded-lg shadow-xl glow-emerald text-xs transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-file-contract text-base"></i>
+                        <span>Generate Full IND Nomination Report</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- END-OF-CAMPAIGN COMPREHENSIVE IND NOMINATION REPORT CARD (HIDDEN BY DEFAULT) -->
+        <div id="report-modal" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md overflow-y-auto p-4 sm:p-6 md:p-10 flex justify-center">
+            <div class="bg-cardBg border border-slate-700 rounded-2xl max-w-5xl w-full p-6 sm:p-8 space-y-6 text-slate-100 shadow-2xl my-auto print-card">
+                
+                <!-- Modal Top Action Header -->
+                <div class="flex items-center justify-between border-b border-slate-800 pb-4 no-print">
+                    <div class="flex items-center gap-2 text-brand-400 font-bold text-sm">
+                        <i class="fa-solid fa-award text-lg"></i>
+                        <span>Campaign Preclinical Review & IND Nomination Certificate</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button onclick="window.print()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs font-semibold flex items-center gap-1.5 text-slate-200 transition">
+                            <i class="fa-solid fa-print"></i> Print / Save PDF
+                        </button>
+                        <button onclick="closeReportModal()" class="text-slate-400 hover:text-white text-lg px-2">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Report Title Banner -->
+                <div class="text-center space-y-2 border-b border-slate-800 pb-6">
+                    <span class="text-xs font-mono tracking-widest text-brand-400 uppercase">Pharm Discovery Studio • Preclinical R&D Audit</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">IND Candidate Nomination Report</h2>
+                    <p id="report-campaign-name" class="text-sm text-slate-400">Target Campaign: GABA-A Receptor PAM (CNS Program)</p>
+                </div>
+
+                <!-- Overall Grade & High-Level Metrics Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <!-- Letter Grade Box -->
+                    <div class="md:col-span-1 bg-slate-900 border border-slate-800 rounded-xl p-5 flex flex-col items-center justify-center text-center space-y-1">
+                        <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Overall R&D Grade</span>
+                        <span id="rep-letter-grade" class="text-5xl font-black text-brand-400 my-1">A+</span>
+                        <span id="rep-score-num" class="text-xs font-mono text-slate-300">Score: 94.2 / 100</span>
+                    </div>
+
+                    <!-- Key Timeline & Budget Breakdown -->
+                    <div class="md:col-span-3 bg-slate-900 border border-slate-800 rounded-xl p-5 grid grid-cols-3 gap-3 text-center my-auto">
+                        <div>
+                            <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Total Spent</span>
+                            <span id="rep-budget" class="text-lg font-bold font-mono text-emerald-400">2.45M</span>
+                            <span class="text-[10px] text-slate-500 block">Cap: 3.50M</span>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Total Cycle Time</span>
+                            <span id="rep-timeline" class="text-lg font-bold font-mono text-cyanBrand-400">22 Months</span>
+                            <span class="text-[10px] text-slate-500 block">Cap: 36 Months</span>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Compound Status</span>
+                            <span id="rep-status" class="text-lg font-bold font-mono text-brand-400">NOMINATED</span>
+                            <span class="text-[10px] text-slate-500 block">Ready for FIH</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scorecard Table & Multi-Dimensional Radar -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Final Scorecard Table vs Target Product Profile TPP -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-3">
+                        <h3 class="text-xs font-bold text-white uppercase tracking-wider border-b border-slate-800 pb-2">Candidate Scorecard vs. TPP</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs font-mono">
+                                <thead>
+                                    <tr class="text-slate-500 border-b border-slate-800">
+                                        <th class="pb-2">Parameter</th>
+                                        <th class="pb-2">Target Product Profile</th>
+                                        <th class="pb-2">Final Candidate</th>
+                                        <th class="pb-2 text-right">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-800 text-slate-300">
+                                    <tr>
+                                        <td class="py-2 text-slate-400 font-sans">Potency (IC_{50})</td>
+                                        <td>&lt; 50 nM</td>
+                                        <td id="rep-tpp-ic50" class="text-brand-400 font-bold">18 nM</td>
+                                        <td class="text-right text-emerald-400"><i class="fa-solid fa-check"></i> Pass</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 text-slate-400 font-sans">Solubility</td>
+                                        <td>&gt; 50 μM</td>
+                                        <td id="rep-tpp-sol" class="text-cyanBrand-400 font-bold">145 μM</td>
+                                        <td class="text-right text-emerald-400"><i class="fa-solid fa-check"></i> Pass</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 text-slate-400 font-sans">Oral Bioavail. (%F)</td>
+                                        <td>&gt; 40%</td>
+                                        <td id="rep-tpp-f" class="text-brand-400 font-bold">68%</td>
+                                        <td class="text-right text-emerald-400"><i class="fa-solid fa-check"></i> Pass</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 text-slate-400 font-sans">hERG Margin</td>
+                                        <td>&gt; 30x</td>
+                                        <td id="rep-tpp-herg" class="text-emerald-400 font-bold">1,770x</td>
+                                        <td class="text-right text-emerald-400"><i class="fa-solid fa-check"></i> Pass</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 text-slate-400 font-sans">Genotoxicity</td>
+                                        <td>Negative</td>
+                                        <td id="rep-tpp-genotox" class="text-emerald-400 font-bold">Negative</td>
+                                        <td class="text-right text-emerald-400"><i class="fa-solid fa-check"></i> Pass</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Dimensional Score Breakdown Chart -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-2">
+                        <h3 class="text-xs font-bold text-white uppercase tracking-wider border-b border-slate-800 pb-2">Stage Performance Index</h3>
+                        <div class="h-48">
+                            <canvas id="reportRadarChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expert Regulatory Reviewer Commentary -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3">
+                    <div class="flex items-center gap-2 text-xs font-bold text-slate-200 border-b border-slate-800 pb-2">
+                        <i class="fa-solid fa-user-tie text-brand-400"></i>
+                        <span>Executive Preclinical Review Board Assessment</span>
+                    </div>
+                    <p id="rep-expert-commentary" class="text-xs text-slate-300 leading-relaxed font-sans">
+                        The campaign successfully delivered an exceptional IND candidate meeting all predefined Target Product Profile criteria. The compound combines sub-50 nM potency with clean safety profile and low clearance. Recommended for fast-track Phase 1 First-in-Human clinical trial protocol preparation.
+                    </p>
+                </div>
+
+                <!-- Modal Bottom Button -->
+                <div class="flex justify-end pt-2 no-print">
+                    <button onclick="closeReportModal()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-semibold transition">
+                        Close & Return to Studio
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- EDUCATIONAL CONCEPT POPUP MODAL (REUSABLE) -->
+        <div id="info-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 no-print">
+            <div class="bg-cardBg border border-slate-700 rounded-xl max-w-lg w-full p-6 space-y-4 text-slate-100 shadow-2xl">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <div class="flex items-center gap-2">
+                        <i id="info-icon" class="fa-solid fa-circle-info text-brand-400 text-lg"></i>
+                        <h3 id="info-title" class="font-bold text-white text-base">Concept Explanation</h3>
+                    </div>
+                    <button onclick="closeInfoModal()" class="text-slate-400 hover:text-white text-base">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div class="space-y-3 text-xs leading-relaxed">
+                    <div>
+                        <span class="font-bold text-brand-400 block mb-0.5">What is this?</span>
+                        <p id="info-what" class="text-slate-300">Explanation text goes here.</p>
+                    </div>
+
+                    <div>
+                        <span class="font-bold text-cyanBrand-400 block mb-0.5">Why it matters in Drug Discovery:</span>
+                        <p id="info-why" class="text-slate-300">Why it matters text goes here.</p>
+                    </div>
+
+                    <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg">
+                        <span class="font-bold text-amber-400 block mb-0.5">Optimal Target Range:</span>
+                        <p id="info-target" class="text-slate-300 font-mono">Target range values go here.</p>
+                    </div>
+                </div>
+
+                <div class="flex justify-end pt-2">
+                    <button onclick="closeInfoModal()" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-semibold transition">
+                        Got it!
+                    </button>
+                </div>
+            </div>
+        </div>
 
     </main>
 
+    <!-- GUIDED TOUR FLOATING TOOLTIP BOX -->
+    <div id="tour-overlay" class="hidden fixed bottom-6 right-6 z-50 max-w-sm w-full bg-slate-900 border-2 border-brand-500 rounded-xl p-5 shadow-2xl space-y-3 no-print">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <span id="tour-step-count" class="text-xs font-mono font-bold text-brand-400">Step 1 of 5</span>
+            <button onclick="endTour()" class="text-slate-500 hover:text-slate-300 text-xs">Skip Tour</button>
+        </div>
+        <h4 id="tour-title" class="font-bold text-white text-sm">Welcome to Pharm Discovery Studio!</h4>
+        <p id="tour-text" class="text-xs text-slate-300 leading-relaxed">
+            This simulator lets you navigate a full drug discovery campaign from target identification to filing an IND package.
+        </p>
+        <div class="flex items-center justify-between pt-2">
+            <button onclick="prevTourStep()" id="tour-prev-btn" class="px-3 py-1.5 bg-slate-800 text-slate-300 rounded text-xs hover:bg-slate-700 disabled:opacity-50">Back</button>
+            <button onclick="nextTourStep()" id="tour-next-btn" class="px-4 py-1.5 bg-brand-600 text-white font-semibold rounded text-xs hover:bg-brand-500">Next Step</button>
+        </div>
+    </div>
+
     <script>
-        // --- 1. CAMPAIGN DATABASE & CONFIGURATIONS ---
-        const campaigns = [
-            {
-                id: 0,
-                name: "Central Nervous System (CNS)",
-                targetName: "GABA-A Receptor Positive Allosteric Modulator",
-                targetClass: "GPCR / Ion Channel",
-                bodySystem: "CNS",
-                budget: 10.0,
-                desc: "Develop an oral, BBB-penetrant allosteric modulator for anxiety/depression without sedative off-target liability.",
-                pocketVol: "740 Å³",
-                diseaseScore: "0.92 (High)",
-                rules: [
-                    "Must achieve Blood-Brain Barrier penetration ($LogBB > 0$, $TPSA < 90 \\text{ Å}^2$).",
-                    "Molecular Weight ($MW < 400 \\text{ g/mol}$) to cross tight endothelial junctions.",
-                    "High target selectivity to avoid sedation / ataxia off-target effects."
-                ]
+        const state = {
+            currentStage: 1,
+            activeCampaignKey: 'cns',
+            budgetSpent: 0.45,
+            budgetCap: 3.50,
+            qualityIndex: 88.5,
+            timelineMonths: 4,
+            timelineCap: 36,
+
+            // Stage 3 Hit-to-Lead Sliders State
+            logP: 2.8,
+            mw: 380,
+            tpsa: 75,
+            hbd: 1,
+
+            // Stage 4 DMPK Sliders State
+            t12: 45,
+            papp: 18,
+            fu: 8.5,
+
+            // Stage 5 Preclinical Safety Sliders State
+            herg: 32,
+            noael: 300
+        };
+
+        // Campaign Presets Database
+        const campaigns = {
+            cns: {
+                name: "GABA-A Receptor PAM (CNS)",
+                badge: "CNS System",
+                desc: "Targeting central GABA-A ion channels for severe treatment-resistant anxiety. Requires high Blood-Brain Barrier permeability (LogBB > 0, TPSA < 90 Å²) while minimizing off-target sedation and cardiac hERG channel blockage.",
+                tpp: { ic50: 50, sol: 50, bioavail: 40, herg: 30 }
             },
-            {
-                id: 1,
-                name: "Oncology / Cell Signaling",
-                targetName: "EGFR Tyrosine Kinase Inhibitor",
-                targetClass: "Receptor Tyrosine Kinase (RTK)",
-                bodySystem: "Oncology",
-                budget: 12.0,
-                desc: "Design a mutant-selective inhibitor for Non-Small Cell Lung Cancer (NSCLC) overriding T790M resistance.",
-                pocketVol: "920 Å³",
-                diseaseScore: "0.96 (Very High)",
-                rules: [
-                    "High selectivity for EGFR T790M/L858R mutants over Wild-Type EGFR to avoid cutaneous toxicity.",
-                    "High potency ($IC_{50} < 10 \\text{ nM}$) required due to high ATP concentration competition in cells.",
-                    "Moderate lipophilicity allowed, but requires solubility $> 50 \\mu M$."
-                ]
+            oncology: {
+                name: "EGFR Kinase Inhibitor (Oncology)",
+                badge: "Oncology",
+                desc: "Selectively targeting mutant EGFR kinase (T790M/L858R) in Non-Small Cell Lung Cancer while avoiding wild-type EGFR cutaneous toxicity and cardiotoxicity.",
+                tpp: { ic50: 20, sol: 80, bioavail: 50, herg: 50 }
             },
-            {
-                id: 2,
-                name: "Cardiovascular / Renal",
-                targetName: "SGLT2 Cotransporter Inhibitor",
-                targetClass: "Ion Co-Transporter / Membrane Solute Carrier",
-                bodySystem: "Cardiovascular / Renal",
-                budget: 9.5,
-                desc: "Develop a renal-selective glucose cotransporter inhibitor for Heart Failure & Type-2 Diabetes.",
-                pocketVol: "810 Å³",
-                diseaseScore: "0.88 (High)",
-                rules: [
-                    "High SGLT2 vs SGLT1 isoform selectivity (>100-fold) to avoid intestinal hypoglycemia.",
-                    "Low $hERG$ potassium channel block ($IC_{50} > 20 \\mu M$) critical for cardiac safety profile.",
-                    "Renal elimination pathway without toxic metabolite accumulation."
-                ]
+            cardio: {
+                name: "SGLT2 Transporter Inhibitor (Renal/Cardio)",
+                badge: "Cardio / Renal",
+                desc: "Inhibiting renal proximal tubule sodium-glucose cotransporter-2 for heart failure and glycemic control. Requires balanced renal clearance and low systemic binding.",
+                tpp: { ic50: 30, sol: 100, bioavail: 60, herg: 40 }
             },
-            {
-                id: 3,
-                name: "Immunology / Inflammation",
-                targetName: "JAK1 Cytokine Kinase Inhibitor",
-                targetClass: "Cytokine Receptor Kinase",
-                bodySystem: "Immunology",
-                budget: 11.0,
-                desc: "Identify a selective JAK1 inhibitor for Rheumatoid Arthritis avoiding hematological toxicity of JAK2/3.",
-                pocketVol: "880 Å³",
-                diseaseScore: "0.90 (High)",
-                rules: [
-                    "JAK1 vs JAK2 selectivity >20x required to avoid anemia and neutropenia.",
-                    "Moderate plasma clearance for predictable once-daily dosing.",
-                    "Clean Ames genotoxicity and low CYP inhibition."
-                ]
+            immuno: {
+                name: "JAK1 Selective Kinase Inhibitor (Immunology)",
+                badge: "Immunology",
+                desc: "Targeting JAK1 for rheumatoid arthritis. Demands strict selectivity over JAK2 and JAK3 isoforms to avoid erythropoietin signaling suppression and anemia.",
+                tpp: { ic50: 15, sol: 60, bioavail: 45, herg: 30 }
             },
-            {
-                id: 4,
-                name: "Infectious Disease",
-                targetName: "Viral Main Protease (Mpro) Inhibitor",
-                targetClass: "Hydrolase Enzyme",
-                bodySystem: "Infectious Disease",
-                budget: 8.5,
-                desc: "Design a covalent or non-covalent inhibitor targeting viral $M^{pro}$ cysteine catalytic triad for oral antiviral therapy.",
-                pocketVol: "950 Å³",
-                diseaseScore: "0.98 (Critical)",
-                rules: [
-                    "High cellular antiviral potency ($EC_{90} < 100 \\text{ nM}$).",
-                    "High metabolic stability ($t_{1/2} > 45 \\text{ min}$) to avoid requirement for CYP3A4 boosters (Ritonavir).",
-                    "Aqueous solubility $> 100 \\mu M$ for rapid oral dissolution."
-                ]
+            infectious: {
+                name: "Viral Main Protease (Mpro) Inhibitor",
+                badge: "Infectious Disease",
+                desc: "Inhibiting viral substrate processing hydrolase. Demands high cellular permeability, rapid viral load drop, and metabolic stability against liver CYP oxidation.",
+                tpp: { ic50: 25, sol: 120, bioavail: 50, herg: 25 }
             }
-        ];
+        };
 
-        // --- 2. GLOBAL STATE ---
-        let currentCampaignIdx = 0;
-        let currentStage = 1;
-        let budgetRemaining = 10.0;
-        let campaignScore = 80;
+        // Charts instances references
+        let crisprChart, cetsaChart, htsChart, doseResponseChart, mpoRadarChart, pkCurveChart, hergTraceChart, reportRadarChart;
 
-        // Chart Instances
-        let ic50ChartInstance = null;
-        let mpoRadarChartInstance = null;
-        let pkSimChartInstance = null;
+        window.onload = function() {
+            initCharts();
+            updateAllComponents();
+        };
 
-        // --- 3. CAMPAIGN SELECTION & INITIALIZATION ---
-        function initCampaignButtons() {
-            const container = document.getElementById('campaign-buttons-container');
-            container.innerHTML = campaigns.map((c, idx) => `
-                <button onclick="selectCampaign(${idx})" id="camp-btn-${idx}" class="p-3 rounded-xl border text-left flex flex-col justify-between transition-all ${idx === 0 ? 'border-emerald-500 bg-emerald-950/20' : 'border-dark-border bg-dark-panel hover:border-slate-500'}">
-                    <div>
-                        <span class="font-bold text-white block">${c.name}</span>
-                        <span class="text-[10px] text-dark-muted block mt-0.5">${c.targetName}</span>
-                    </div>
-                    <span class="text-[10px] text-emerald-400 font-mono mt-2">$${c.budget.toFixed(1)}M Budget</span>
-                </button>
-            `).join('');
-            selectCampaign(0);
+        function updateAllComponents() {
+            updateStage1();
+            updateStage2();
+            updateStage3();
+            updateStage4();
+            updateStage5();
+            updateGlobalKPIs();
         }
 
-        function selectCampaign(idx) {
-            currentCampaignIdx = idx;
-            const camp = campaigns[idx];
-            budgetRemaining = camp.budget;
-            campaignScore = 85;
-
-            // Update UI buttons styling
-            campaigns.forEach((_, i) => {
-                const btn = document.getElementById(`camp-btn-${i}`);
-                if (btn) {
-                    btn.className = `p-3 rounded-xl border text-left flex flex-col justify-between transition-all ${i === idx ? 'border-emerald-500 bg-emerald-950/20' : 'border-dark-border bg-dark-panel hover:border-slate-500'}`;
-                }
-            });
-
-            document.getElementById('target-class-badge').innerText = `Target Class: ${camp.targetClass}`;
-            document.getElementById('target-bio-summary').innerHTML = `
-                <p><strong class="text-slate-200">System:</strong> ${camp.bodySystem}</p>
-                <p><strong class="text-slate-200">Target:</strong> ${camp.targetName}</p>
-                <p class="mt-1">${camp.desc}</p>
-            `;
-            document.getElementById('pocket-vol').innerText = camp.pocketVol;
-            document.getElementById('disease-score').innerText = camp.diseaseScore;
-
-            // System rules
-            document.getElementById('system-rules-box').innerHTML = camp.rules.map(r => `<p class="flex items-start gap-1.5"><i class="fa-solid fa-angle-right text-emerald-400 mt-0.5"></i> <span>${r}</span></p>`).join('');
-
-            updateHeaderStats();
-            gotoStage(1);
-        }
-
-        function updateHeaderStats() {
-            const camp = campaigns[currentCampaignIdx];
-            document.getElementById('budget-display').innerText = `$${budgetRemaining.toFixed(2)}M / $${camp.budget.toFixed(1)}M`;
-            document.getElementById('score-display').innerText = `${campaignScore} / 100`;
-        }
-
-        // --- 4. STAGE NAVIGATION ENGINE ---
-        function gotoStage(stageNum) {
-            currentStage = stageNum;
-
-            // Update tab UI
+        function goToStage(stageNum) {
+            state.currentStage = stageNum;
+            
+            // Hide all stage containers
             for (let i = 1; i <= 5; i++) {
-                const view = document.getElementById(`stage-view-${i}`);
-                const btn = document.getElementById(`step-btn-${i}`);
-                if (i === stageNum) {
-                    view.classList.remove('hidden');
-                    btn.classList.add('active');
-                } else {
-                    view.classList.add('hidden');
-                    btn.classList.remove('active');
+                const el = document.getElementById(`stage-{i}`);
+                if (el) el.classList.add('hidden');
+                
+                const btn = document.getElementById(`step-btn-{i}`);
+                if (btn) {
+                    btn.className = "p-2.5 rounded-lg border border-slate-800 bg-slate-800/40 text-slate-400 flex flex-col sm:flex-row items-center justify-center gap-2 transition hover:bg-slate-800";
+                    btn.querySelector('span:first-child').className = "w-6 h-6 rounded-full bg-slate-700 text-slate-300 font-bold flex items-center justify-center text-xs";
                 }
             }
 
-            // Trigger stage specific charts
-            if (stageNum === 2) initIC50Chart();
-            if (stageNum === 3) initMPORadarChart();
-            if (stageNum === 4) initPKSimChart();
-            if (stageNum === 5) updateStage5();
-        }
+            // Show active stage
+            const activeEl = document.getElementById(`stage-{stageNum}`);
+            if (activeEl) activeEl.classList.remove('hidden');
 
-        function advanceGate(stageNum) {
-            budgetRemaining = Math.max(0.5, budgetRemaining - 0.8);
-            campaignScore = Math.min(100, campaignScore + 3);
-            updateHeaderStats();
-
-            const nextStage = stageNum + 1;
-            if (nextStage <= 5) {
-                document.getElementById(`step-btn-${stageNum}`).classList.add('completed');
-                gotoStage(nextStage);
+            const activeBtn = document.getElementById(`step-btn-{stageNum}`);
+            if (activeBtn) {
+                activeBtn.className = "p-2.5 rounded-lg border border-brand-500/50 bg-brand-950/60 text-brand-400 flex flex-col sm:flex-row items-center justify-center gap-2 transition hover:bg-slate-800";
+                activeBtn.querySelector('span:first-child').className = "w-6 h-6 rounded-full bg-brand-500 text-slate-950 font-bold flex items-center justify-center text-xs";
             }
+
+            // Refresh charts when stage switches to ensure correct canvas rendering
+            setTimeout(() => {
+                if (stageNum === 1 && crisprChart) crisprChart.resize();
+                if (stageNum === 2 && htsChart) htsChart.resize();
+                if (stageNum === 3) { if (doseResponseChart) doseResponseChart.resize(); if (mpoRadarChart) mpoRadarChart.resize(); }
+                if (stageNum === 4 && pkCurveChart) pkCurveChart.resize();
+                if (stageNum === 5 && hergTraceChart) hergTraceChart.resize();
+            }, 50);
         }
 
-        // --- 5. STAGE SIMULATION UPDATERS ---
+        function switchCampaign(campaignKey) {
+            state.activeCampaignKey = campaignKey;
+            const camp = campaigns[campaignKey];
 
-        // Stage 1: Target Validation
-        function updateStage1() {
-            const crispr = document.getElementById('val-crispr').checked;
-            const cetsa = document.getElementById('val-cetsa').checked;
-            const phospho = document.getElementById('val-phospho').checked;
+            document.getElementById('campaign-badge').innerText = camp.badge;
+            document.getElementById('campaign-title').innerText = camp.name;
+            document.getElementById('campaign-desc').innerText = camp.desc;
 
-            let conf = 40;
-            if (crispr) conf += 25;
-            if (cetsa) conf += 20;
-            if (phospho) conf += 15;
-
-            document.getElementById('val-confidence-bar').style.width = `${conf}%`;
-            document.getElementById('val-confidence-text').innerText = `Confidence Score: ${conf}%`;
+            // Reset stage outputs
+            updateAllComponents();
         }
 
-        // Stage 2: HTS & Dose-Response
-        function updateStage2() {
-            const cutoff = parseInt(document.getElementById('input-hit-cutoff').value);
-            const filterPains = document.getElementById('filter-pains').checked;
-            const filterAgg = document.getElementById('filter-aggregators').checked;
+        function updateGlobalKPIs() {
+            // Compute budget & timeline dynamically based on stage
+            let budget = 0.45 + (state.currentStage - 1) * 0.55;
+            let timeline = 4 + (state.currentStage - 1) * 5;
+            let quality = 85 + (state.currentStage * 2);
 
-            document.getElementById('val-hit-cutoff').innerText = `${cutoff}%`;
+            state.budgetSpent = budget;
+            state.timelineMonths = timeline;
+            state.qualityIndex = Math.min(98.5, quality);
 
-            const primaryHits = Math.round(250000 * (0.012 - (cutoff - 30) * 0.00018));
-            let confirmedHits = Math.round(primaryHits * 0.25);
-
-            if (filterPains) confirmedHits = Math.round(confirmedHits * 0.7);
-            if (filterAgg) confirmedHits = Math.round(confirmedHits * 0.8);
-
-            document.getElementById('res-primary-hits').innerText = primaryHits.toLocaleString();
-            document.getElementById('res-confirmed-hits').innerText = confirmedHits.toLocaleString();
-            document.getElementById('res-hit-rate').innerText = `${((confirmedHits / 250000) * 100).toFixed(2)}%`;
-
-            if (ic50ChartInstance) {
-                const curveData = [100, 98, 92, 75, 42, 12, 2];
-                ic50ChartInstance.data.datasets[0].data = curveData;
-                ic50ChartInstance.update();
-            }
+            document.getElementById('budget-display').innerText = `{budget.toFixed(2)}M / {state.budgetCap.toFixed(2)}M`;
+            document.getElementById('quality-display').innerText = `{state.qualityIndex.toFixed(1)} / 100`;
+            document.getElementById('timeline-display').innerText = `Month {timeline} / {state.timelineCap}`;
         }
 
-        function initIC50Chart() {
-            if (ic50ChartInstance) return;
-            const ctx = document.getElementById('ic50Chart').getContext('2d');
-            ic50ChartInstance = new Chart(ctx, {
-                type: 'line',
+        function initCharts() {
+            // 1. Stage 1 CRISPR Bar Chart
+            const ctxCrispr = document.getElementById('crisprChart').getContext('2d');
+            crisprChart = new Chart(ctxCrispr, {
+                type: 'bar',
                 data: {
-                    labels: ['10⁻⁹ M', '10⁻⁸ M', '10⁻⁷ M', '10⁻⁶ M', '10⁻⁵ M', '10⁻⁴ M', '10⁻³ M'],
+                    labels: ['Target Gene', 'Paralog A', 'Paralog B', 'Control Redundant'],
                     datasets: [{
-                        label: 'Target Inhibition %',
-                        data: [100, 98, 92, 75, 42, 12, 2],
-                        borderColor: '#22c55e',
-                        backgroundColor: 'rgba(34, 197, 94, 0.1)',
-                        fill: true,
-                        tension: 0.4
+                        label: 'CERES Essentiality Score',
+                        data: [-1.45, -0.12, -0.05, 0.02],
+                        backgroundColor: ['#22c55e', '#64748b', '#64748b', '#64748b'],
+                        borderRadius: 6
                     }]
                 },
                 options: {
@@ -763,52 +1152,210 @@
                     maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
                     scales: {
-                        x: { grid: { color: '#2e4166' }, ticks: { color: '#94a3b8' } },
-                        y: { grid: { color: '#2e4166' }, ticks: { color: '#94a3b8' }, title: { display: true, text: '% Activity Remaining', color: '#94a3b8' } }
+                        y: { grid: { color: '#1e293b' }, ticks: { color: '#94a3b8', font: { size: 10 } } },
+                        x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 10 } } }
                     }
                 }
             });
-            updateStage2();
-        }
 
-        // Stage 3: MedChem MPO
-        function updateStage3() {
-            const logp = parseFloat(document.getElementById('input-logp').value);
-            const mw = parseFloat(document.getElementById('input-mw').value);
-            const tpsa = parseFloat(document.getElementById('input-tpsa').value);
-            const hbd = parseInt(document.getElementById('input-hb-donor').value);
+            // 2. Stage 1 CETSA Melt Curve Line Chart
+            const ctxCetsa = document.getElementById('cetsaChart').getContext('2d');
+            cetsaChart = new Chart(ctxCetsa, {
+                type: 'line',
+                data: {
+                    labels: ['37°C', '42°C', '47°C', '52°C', '57°C', '62°C'],
+                    datasets: [
+                        {
+                            label: '+ Lead Compound',
+                            data: [100, 95, 82, 64, 38, 12],
+                            borderColor: '#22c55e',
+                            backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Vehicle Control',
+                            data: [100, 78, 42, 18, 4, 0],
+                            borderColor: '#64748b',
+                            borderDash: [4, 4],
+                            fill: false,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: '#cbd5e1', font: { size: 10 } } } },
+                    scales: {
+                        y: { grid: { color: '#1e293b' }, ticks: { color: '#94a3b8', font: { size: 10 } } },
+                        x: { grid: { color: '#1e293b' }, ticks: { color: '#94a3b8', font: { size: 10 } } }
+                    }
+                }
+            });
 
-            document.getElementById('val-logp').innerText = logp.toFixed(1);
-            document.getElementById('val-mw').innerText = mw;
-            document.getElementById('val-tpsa').innerText = tpsa;
-            document.getElementById('val-hbonds').innerText = `${hbd} / 4`;
-
-            // MPO Radar Scores calculation
-            const potencyScore = Math.min(5, Math.max(1, (mw / 100) + (logp * 0.5)));
-            const solubilityScore = Math.min(5, Math.max(1, 6 - (logp * 0.8)));
-            const permeabilityScore = Math.min(5, Math.max(1, (logp * 0.9) - (tpsa / 40)));
-            const metabolicScore = Math.min(5, Math.max(1, 5 - (logp * 0.5)));
-            const safetyScore = Math.min(5, Math.max(1, 5.5 - (logp * 0.6) - (hbd * 0.3)));
-
-            const avgMPO = ((potencyScore + solubilityScore + permeabilityScore + metabolicScore + safetyScore) / 5).toFixed(1);
-            document.getElementById('mpo-score-badge').innerText = `MPO Score: ${avgMPO} / 5.0`;
-
-            if (mpoRadarChartInstance) {
-                mpoRadarChartInstance.data.datasets[0].data = [potencyScore, solubilityScore, permeabilityScore, metabolicScore, safetyScore];
-                mpoRadarChartInstance.update();
+            // 3. Stage 2 HTS Scatter Chart
+            const ctxHts = document.getElementById('htsChart').getContext('2d');
+            const scatterPoints = [];
+            for (let i = 0; i < 150; i++) {
+                scatterPoints.push({ x: i, y: Math.max(0, Math.random() * 40 + (Math.random() < 0.08 ? 50 : 0)) });
             }
-        }
+            htsChart = new Chart(ctxHts, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Library Compounds',
+                        data: scatterPoints,
+                        backgroundColor: (ctx) => (ctx.raw && ctx.raw.y > 50) ? '#22c55e' : '#475569',
+                        pointRadius: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { title: { display: true, text: '% Inhibition', color: '#94a3b8' }, grid: { color: '#1e293b' }, ticks: { color: '#94a3b8' }, min: 0, max: 100 },
+                        x: { title: { display: true, text: 'Compound Index (Thousands)', color: '#94a3b8' }, grid: { color: '#1e293b' }, ticks: { color: '#94a3b8' } }
+                    }
+                }
+            });
 
-        function initMPORadarChart() {
-            if (mpoRadarChartInstance) return;
-            const ctx = document.getElementById('mpoRadarChart').getContext('2d');
-            mpoRadarChartInstance = new Chart(ctx, {
+            // 4. Stage 3 4PL Dose Response Chart
+            const ctxDose = document.getElementById('doseResponseChart').getContext('2d');
+            doseResponseChart = new Chart(ctxDose, {
+                type: 'line',
+                data: {
+                    labels: ['0.1 nM', '1 nM', '10 nM', '100 nM', '1 uM', '10 uM'],
+                    datasets: [{
+                        label: '% Target Inhibition',
+                        data: [2, 12, 42, 85, 96, 99],
+                        borderColor: '#22c55e',
+                        backgroundColor: 'rgba(34, 197, 94, 0.2)',
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { grid: { color: '#1e293b' }, ticks: { color: '#94a3b8', font: { size: 10 } }, min: 0, max: 100 },
+                        x: { grid: { color: '#1e293b' }, ticks: { color: '#94a3b8', font: { size: 10 } } }
+                    }
+                }
+            });
+
+            // 5. Stage 3 MPO Radar Chart
+            const ctxRadar = document.getElementById('mpoRadarChart').getContext('2d');
+            mpoRadarChart = new Chart(ctxRadar, {
                 type: 'radar',
                 data: {
-                    labels: ['Potency', 'Solubility', 'Permeability', 'Metabolic Stability', 'Safety Margin'],
+                    labels: ['Potency', 'Solubility', 'Permeability', 'Metabolic Stab', 'Safety Margin'],
                     datasets: [{
-                        label: 'Lead Analog Series A',
-                        data: [4.2, 3.8, 4.0, 3.5, 4.5],
+                        label: 'Active Lead Candidate',
+                        data: [88, 75, 82, 70, 90],
+                        borderColor: '#06b6d4',
+                        backgroundColor: 'rgba(6, 182, 212, 0.25)',
+                        pointBackgroundColor: '#06b6d4'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        r: {
+                            angleLines: { color: '#334155' },
+                            grid: { color: '#1e293b' },
+                            pointLabels: { color: '#cbd5e1', font: { size: 9, weight: 'bold' } },
+                            ticks: { display: false },
+                            min: 0, max: 100
+                        }
+                    }
+                }
+            });
+
+            // 6. Stage 4 Oral PK Curve Chart
+            const ctxPk = document.getElementById('pkCurveChart').getContext('2d');
+            pkCurveChart = new Chart(ctxPk, {
+                type: 'line',
+                data: {
+                    labels: ['0h', '1h', '2h', '4h', '8h', '12h', '18h', '24h'],
+                    datasets: [
+                        {
+                            label: 'Plasma Conc (ng/mL)',
+                            data: [0, 420, 380, 290, 180, 110, 65, 38],
+                            borderColor: '#06b6d4',
+                            backgroundColor: 'rgba(6, 182, 212, 0.15)',
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Target EC90 Threshold',
+                            data: [30, 30, 30, 30, 30, 30, 30, 30],
+                            borderColor: '#f59e0b',
+                            borderDash: [6, 6],
+                            fill: false,
+                            pointRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: '#cbd5e1', font: { size: 10 } } } },
+                    scales: {
+                        y: { title: { display: true, text: 'ng/mL', color: '#94a3b8' }, grid: { color: '#1e293b' }, ticks: { color: '#94a3b8' } },
+                        x: { grid: { color: '#1e293b' }, ticks: { color: '#94a3b8' } }
+                    }
+                }
+            });
+
+            // 7. Stage 5 hERG Trace Chart
+            const ctxHerg = document.getElementById('hergTraceChart').getContext('2d');
+            hergTraceChart = new Chart(ctxHerg, {
+                type: 'line',
+                data: {
+                    labels: ['0ms', '100ms', '200ms', '300ms', '400ms', '500ms'],
+                    datasets: [
+                        {
+                            label: 'Control Action Potential',
+                            data: [-80, 20, 15, -10, -60, -80],
+                            borderColor: '#22c55e',
+                            tension: 0.4
+                        },
+                        {
+                            label: 'With Compound (hERG Risk)',
+                            data: [-80, 20, 18, 5, -30, -80],
+                            borderColor: '#f43f5e',
+                            borderDash: [4, 4],
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: '#cbd5e1', font: { size: 10 } } } },
+                    scales: {
+                        y: { title: { display: true, text: 'mV', color: '#94a3b8' }, grid: { color: '#1e293b' }, ticks: { color: '#94a3b8' } },
+                        x: { grid: { color: '#1e293b' }, ticks: { color: '#94a3b8' } }
+                    }
+                }
+            });
+
+            // 8. End Report Radar Chart
+            const ctxRep = document.getElementById('reportRadarChart').getContext('2d');
+            reportRadarChart = new Chart(ctxRep, {
+                type: 'radar',
+                data: {
+                    labels: ['Target Val', 'HTS Quality', 'Lead Chem', 'DMPK Profile', 'Safety Margin'],
+                    datasets: [{
+                        label: 'Final Campaign Score',
+                        data: [92, 88, 95, 90, 96],
                         borderColor: '#22c55e',
                         backgroundColor: 'rgba(34, 197, 94, 0.25)',
                         pointBackgroundColor: '#22c55e'
@@ -820,129 +1367,364 @@
                     plugins: { legend: { display: false } },
                     scales: {
                         r: {
-                            angleLines: { color: '#2e4166' },
-                            grid: { color: '#2e4166' },
-                            pointLabels: { color: '#f8fafc', font: { size: 10 } },
-                            ticks: { display: false, backdropColor: 'transparent' },
-                            min: 0,
-                            max: 5
+                            angleLines: { color: '#334155' },
+                            grid: { color: '#1e293b' },
+                            pointLabels: { color: '#cbd5e1', font: { size: 9, weight: 'bold' } },
+                            ticks: { display: false },
+                            min: 0, max: 100
                         }
                     }
                 }
             });
-            updateStage3();
         }
 
-        // Stage 4: DMPK & PK Simulator
+        function updateStage1() {
+            const hasCrispr = document.getElementById('assay-crispr').checked;
+            const hasCetsa = document.getElementById('assay-cetsa').checked;
+            const hasPhospho = document.getElementById('assay-phospho').checked;
+
+            let bioScore = 60 + (hasCrispr ? 15 : 0) + (hasCetsa ? 13 : 0) + (hasPhospho ? 10 : 0);
+            document.getElementById('s1-bio-val').innerText = `{bioScore}%`;
+            document.getElementById('s1-bio-bar').style.width = `{bioScore}%`;
+
+            if (cetsaChart) {
+                cetsaChart.data.datasets[0].data = hasCetsa ? [100, 95, 82, 64, 38, 12] : [100, 80, 48, 20, 5, 0];
+                cetsaChart.update();
+            }
+        }
+
+        function updateStage2() {
+            const libSize = parseInt(document.getElementById('hts-library-size').value);
+            const cutoff = parseInt(document.getElementById('hts-cutoff').value);
+            const pains = document.getElementById('filter-pains').checked;
+            const agg = document.getElementById('filter-agg').checked;
+
+            let rawRatio = (cutoff === 30) ? 0.025 : (cutoff === 50) ? 0.012 : 0.005;
+            let rawHits = Math.round(libSize * rawRatio);
+            let artifacts = Math.round(rawHits * ((pains ? 0.45 : 0) + (agg ? 0.35 : 0)));
+            let confirmed = rawHits - artifacts;
+
+            document.getElementById('funnel-screened').innerText = libSize.toLocaleString();
+            document.getElementById('funnel-rawhits').innerText = `{rawHits.toLocaleString()} ({(rawRatio*100).toFixed(2)}%)`;
+            document.getElementById('funnel-artifacts').innerText = `-{artifacts.toLocaleString()}`;
+            document.getElementById('funnel-confirmed').innerText = `{confirmed.toLocaleString()} Chemotypes`;
+        }
+
+        function updateStage3() {
+            // Read slider values
+            state.logP = parseFloat(document.getElementById('slider-logp').value);
+            state.mw = parseInt(document.getElementById('slider-mw').value);
+            state.tpsa = parseInt(document.getElementById('slider-tpsa').value);
+            state.hbd = parseInt(document.getElementById('slider-hbd').value);
+
+            // Display UI
+            document.getElementById('val-logp').innerText = state.logP.toFixed(2);
+            document.getElementById('val-mw').innerText = `{state.mw} Da`;
+            document.getElementById('val-tpsa').innerText = `{state.tpsa} Å²`;
+            document.getElementById('val-hbd').innerText = `{state.hbd} HBD`;
+
+            // Compute Potency (IC50 nM)
+            let optimalLogP = (state.activeCampaignKey === 'cns') ? 2.5 : 3.0;
+            let logPDiff = Math.abs(state.logP - optimalLogP);
+            let mwFactor = (state.mw > 500) ? (state.mw - 500) * 0.2 : 0;
+            let ic50 = Math.round(Math.max(2, 10 * Math.pow(1.8, logPDiff) + mwFactor));
+
+            // Compute Solubility
+            let solubility = Math.round(Math.max(5, 350 / Math.pow(10, state.logP - 2.5)));
+            let lle = (9 - Math.log10(ic50 * 1e-9) - state.logP).toFixed(2);
+
+            // CNS MPO Score Calculation
+            let cnsMpo = (state.logP <= 3 ? 1 : 0.4) + (state.mw <= 360 ? 1 : 0.5) + (state.tpsa >= 40 && state.tpsa <= 90 ? 1 : 0.3) + (state.hbd <= 0.5 ? 1 : 0.2);
+
+            document.getElementById('ic50-display-tag').innerText = `IC50 = {ic50} nM`;
+            document.getElementById('m-ic50').innerText = `{ic50} nM`;
+            document.getElementById('m-solubility').innerText = `{solubility} μM`;
+            document.getElementById('m-lle').innerText = `{lle}`;
+            document.getElementById('m-cnsmpo').innerText = `{cnsMpo.toFixed(1)} / 6.0`;
+
+            // Update Dose Response Chart
+            if (doseResponseChart) {
+                let p1 = Math.min(99, Math.max(1, 100 / (1 + Math.pow(ic50 / 0.1, 1))));
+                let p2 = Math.min(99, Math.max(1, 100 / (1 + Math.pow(ic50 / 1.0, 1))));
+                let p3 = Math.min(99, Math.max(1, 100 / (1 + Math.pow(ic50 / 10.0, 1))));
+                let p4 = Math.min(99, Math.max(1, 100 / (1 + Math.pow(ic50 / 100.0, 1))));
+                doseResponseChart.data.datasets[0].data = [p1, p2, p3, p4, 96, 99];
+                doseResponseChart.update();
+            }
+
+            // Update Radar
+            if (mpoRadarChart) {
+                let potScore = Math.min(100, Math.max(10, 100 - (ic50 / 2)));
+                let solScore = Math.min(100, Math.max(10, solubility / 2));
+                let permScore = Math.min(100, Math.max(10, (state.tpsa < 120 ? 85 : 40)));
+                mpoRadarChart.data.datasets[0].data = [potScore, solScore, permScore, 75, 88];
+                mpoRadarChart.update();
+            }
+        }
+
         function updateStage4() {
-            const hl = parseFloat(document.getElementById('input-dmpk-hl').value);
-            const papp = parseFloat(document.getElementById('input-dmpk-papp').value);
-            const fu = parseFloat(document.getElementById('input-dmpk-fu').value);
-            const cyp = parseFloat(document.getElementById('input-dmpk-cyp').value);
+            state.t12 = parseInt(document.getElementById('slider-t12').value);
+            state.papp = parseInt(document.getElementById('slider-papp').value);
+            state.fu = parseFloat(document.getElementById('slider-fu').value);
 
-            document.getElementById('val-dmpk-hl').innerText = `${hl} min`;
-            document.getElementById('val-dmpk-papp').innerText = `${papp}`;
-            document.getElementById('val-dmpk-fu').innerText = `${fu.toFixed(3)} (${(fu*100).toFixed(1)}%)`;
-            document.getElementById('val-dmpk-cyp').innerText = `${cyp} µM`;
+            document.getElementById('val-t12').innerText = `{state.t12} min`;
+            document.getElementById('val-papp').innerText = `{state.papp} x10^-6`;
+            document.getElementById('val-fu').innerText = `{state.fu}%`;
 
-            const bioavail = Math.min(95, Math.round((papp / (papp + 4)) * (hl / (hl + 20)) * 100));
-            document.getElementById('res-dmpk-f').innerText = `${bioavail}%`;
-            document.getElementById('res-dmpk-cl').innerText = `${(800 / hl).toFixed(1)} mL/min/kg`;
+            let bioavail = Math.min(95, Math.round((state.papp / 25) * 60 + (state.t12 / 180) * 30));
+            let cmax = Math.round(250 * (bioavail / 50));
 
-            const cmax = ((bioavail / 100) * 3.2).toFixed(2);
-            const freeCmax = (cmax * fu).toFixed(3);
+            document.getElementById('pk-bioavail-tag').innerText = `Bioavailability %F = {bioavail}%`;
+            document.getElementById('dmpk-cmax').innerText = `{cmax} ng/mL`;
+            document.getElementById('dmpk-auc').innerText = `{Math.round(cmax * 6.8)} ng·h/mL`;
 
-            document.getElementById('res-dmpk-cmax').innerText = `${cmax} µM`;
-            document.getElementById('res-dmpk-freecmax').innerText = `${freeCmax} µM`;
-
-            if (pkSimChartInstance) {
-                const ka = papp * 0.12;
-                const kel = 0.693 / (hl / 12);
-                const times = [0, 0.5, 1, 2, 4, 8, 12, 16, 24];
-                const concs = times.map(t => {
-                    if (t === 0) return 0;
-                    return Math.max(0, (ka / (ka - kel)) * (Math.exp(-kel * t) - Math.exp(-ka * t)) * (bioavail/20)).toFixed(2);
-                });
-
-                pkSimChartInstance.data.datasets[0].data = concs;
-                pkSimChartInstance.update();
+            if (pkCurveChart) {
+                pkCurveChart.data.datasets[0].data = [0, cmax, Math.round(cmax * 0.9), Math.round(cmax * 0.65), Math.round(cmax * 0.4), Math.round(cmax * 0.25), Math.round(cmax * 0.15), Math.round(cmax * 0.08)];
+                pkCurveChart.update();
             }
         }
 
-        function initPKSimChart() {
-            if (pkSimChartInstance) return;
-            const ctx = document.getElementById('pkSimChart').getContext('2d');
-            pkSimChartInstance = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['0h', '0.5h', '1h', '2h', '4h', '8h', '12h', '16h', '24h'],
-                    datasets: [{
-                        label: 'Plasma Conc (µM)',
-                        data: [0, 1.2, 2.4, 2.1, 1.4, 0.7, 0.35, 0.15, 0.04],
-                        borderColor: '#38bdf8',
-                        backgroundColor: 'rgba(56, 189, 248, 0.15)',
-                        fill: true,
-                        tension: 0.3
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { grid: { color: '#2e4166' }, ticks: { color: '#94a3b8' } },
-                        y: { grid: { color: '#2e4166' }, ticks: { color: '#94a3b8' }, title: { display: true, text: 'Conc (µM)', color: '#94a3b8' } }
-                    }
-                }
-            });
-            updateStage4();
-        }
-
-        // Stage 5: Safety & FIH Scaling
         function updateStage5() {
-            const herg = parseFloat(document.getElementById('input-tox-herg').value);
-            const ames = document.getElementById('input-tox-ames').value;
-            const noael = parseFloat(document.getElementById('input-tox-noael').value);
+            state.herg = parseInt(document.getElementById('slider-herg').value);
+            state.noael = parseInt(document.getElementById('slider-noael').value);
 
-            document.getElementById('val-tox-herg').innerText = `${herg} µM`;
-            document.getElementById('val-tox-noael').innerText = `${noael} mg/kg`;
+            document.getElementById('val-herg').innerText = `{state.herg}.0 μM`;
+            document.getElementById('val-noael').innerText = `{state.noael} mg/kg`;
 
-            // Rat Km = 6, Human Km = 37
-            const hed = noael * (6 / 37);
-            const fihPerKg = hed / 10; // 10x safety factor
-            const fihTotalMg = Math.round(fihPerKg * 60);
+            let margin = Math.round((state.herg * 1000) / 18);
+            document.getElementById('herg-margin-tag').innerText = `Safety Margin: {margin}x ({margin > 300 ? 'Optimal' : 'Caution'})`;
 
-            document.getElementById('res-tox-hed').innerText = `${hed.toFixed(1)} mg/kg`;
-            document.getElementById('res-tox-fih').innerText = `${fihTotalMg} mg`;
+            let hed = (state.noael / 6.2).toFixed(1);
+            let fih = (hed / 10).toFixed(1);
 
-            const safetyMargin = Math.round(herg / 0.4);
-            document.getElementById('res-tox-margin').innerText = `${safetyMargin}x`;
+            document.getElementById('fih-hed').innerText = `{hed} mg/kg/day`;
+            document.getElementById('fih-start').innerText = `{fih} mg/day (10x Safety Factor)`;
 
-            const verdictBox = document.getElementById('ind-verdict-box');
-            if (ames === 'pos' || herg < 3) {
-                verdictBox.className = "p-4 rounded-xl border border-red-500/30 bg-red-950/20 text-xs space-y-2";
-                verdictBox.innerHTML = `
-                    <span class="font-bold text-red-400 block"><i class="fa-solid fa-triangle-exclamation"></i> IND FILING RISK: REGULATORY HOLD LIKELY</span>
-                    <p class="text-dark-muted">Safety profile flagged with positive Ames mutagenicity or severe cardiac $hERG$ block (< 3 µM). Recommend structural backup nomination.</p>
-                `;
-            } else {
-                verdictBox.className = "p-4 rounded-xl border border-emerald-500/30 bg-emerald-950/20 text-xs space-y-2";
-                verdictBox.innerHTML = `
-                    <span class="font-bold text-emerald-400 block"><i class="fa-solid fa-circle-check"></i> IND PACKAGE CLEARED FOR FIRST-IN-HUMAN (FIH)</span>
-                    <p class="text-dark-muted">Candidate meets all target candidate profile (TCP) specifications across safety, toxicology, oral DMPK, and target selectivity.</p>
-                `;
+            if (hergTraceChart) {
+                let isHighRisk = state.herg < 5;
+                hergTraceChart.data.datasets[1].data = isHighRisk ? [-80, 20, 18, 12, 10, -80] : [-80, 20, 18, 5, -30, -80];
+                hergTraceChart.update();
             }
         }
 
-        function finishCampaign() {
-            alert(`Campaign Completed! Final Score: ${campaignScore}/100. Remaining Budget: $${budgetRemaining.toFixed(2)}M.`);
+        function generateFinalReport() {
+            const camp = campaigns[state.activeCampaignKey];
+            document.getElementById('report-campaign-name').innerText = `Target Campaign: {camp.name}`;
+
+            // Compute overall performance grade
+            let grade = "A+";
+            let score = 94.2;
+
+            if (state.herg < 5 || state.noael < 30) {
+                grade = "C";
+                score = 72.0;
+            }
+
+            document.getElementById('rep-letter-grade').innerText = grade;
+            document.getElementById('rep-score-num').innerText = `Score: {score} / 100`;
+
+            // Scorecard TPP updates
+            document.getElementById('rep-tpp-ic50').innerText = document.getElementById('m-ic50').innerText;
+            document.getElementById('rep-tpp-sol').innerText = document.getElementById('m-solubility').innerText;
+            document.getElementById('rep-tpp-f').innerText = document.getElementById('pk-bioavail-tag').innerText.replace('Bioavailability %F = ', '');
+            document.getElementById('rep-tpp-herg').innerText = `{Math.round((state.herg * 1000) / 18)}x`;
+
+            document.getElementById('report-modal').classList.remove('hidden');
+
+            if (reportRadarChart) {
+                setTimeout(() => reportRadarChart.resize(), 100);
+            }
         }
 
-        // Initialize App on DOM Load
-        window.addEventListener('DOMContentLoaded', () => {
-            initCampaignButtons();
-            updateStage1();
-        });
+        function closeReportModal() {
+            document.getElementById('report-modal').classList.add('hidden');
+        }
+
+        const infoData = {
+            targetValidation: {
+                title: "Target Validation Strategy",
+                what: "Target Validation proves that modulating a specific gene or protein directly alters disease biology in human cell models.",
+                why: "Launching a drug discovery campaign on an unvalidated target is the #1 cause of expensive Phase II clinical failures.",
+                target: "Multiple orthogonal assays (CRISPR KO + CETSA thermal shift + Phosphoproteomics) achieving >80% essentiality score."
+            },
+            ceres: {
+                title: "CERES Dependency Score",
+                what: "A computational framework measuring cell viability loss after CRISPR-Cas9 target knock-out.",
+                why: "Scores < -0.5 indicate that the cell line is highly dependent on this target for survival.",
+                target: "CERES Score < -1.0 for cancer cell lines or target cell models."
+            },
+            cetsa: {
+                title: "CETSA (Cellular Thermal Shift Assay)",
+                what: "Measures target protein stabilization against thermal denaturation upon ligand binding.",
+                why: "Confirms direct physical drug-target engagement inside living cells, avoiding indirect pathway artifacts.",
+                target: "Thermal melting shift Delta Tm > +3.0°C."
+            },
+            zFactor: {
+                title: "Assay Z'-Factor Quality Metric",
+                what: "A statistical metric measuring screen assay signal window separation between positive and negative controls.",
+                why: "Determines whether an HTS assay is reliable enough to screen hundreds of thousands of compounds.",
+                target: "Z' >= 0.5 (Good) | Z' > 0.7 (Excellent, High-Precision HTS)."
+            },
+            pains: {
+                title: "PAINS (Pan-Assay Interference Compounds)",
+                what: "Chemical structures that yield false-positive assay hits via covalent reactivity, fluorescence interference, or metal chelation.",
+                why: "Filtering PAINS prevents medicinal chemists from wasting years optimizing non-specific artifacts.",
+                target: "0 PAINS motifs in nominated lead series."
+            },
+            lipinski: {
+                title: "Lipinski's Rule of 5 (Ro5)",
+                what: "A rule of thumb for oral bioavailability: MW <= 500, LogP <= 5, H-bond donors <= 5, H-bond acceptors <= 10.",
+                why: "Ensures the molecule possesses appropriate physicochemical balance for gastrointestinal absorption.",
+                target: "0 or max 1 Rule-of-5 violation."
+            },
+            logp: {
+                title: "Lipophilicity (LogP)",
+                what: "The octanol-water partition coefficient measuring a molecule's lipophilicity ('greasiness').",
+                why: "High LogP (>4) increases potency but leads to poor solubility, high CYP clearance, and hERG cardiotoxicity.",
+                target: "LogP between 1.5 and 3.5 for general oral drugs (LogP < 2.5 for CNS)."
+            },
+            mw: {
+                title: "Molecular Weight (MW)",
+                what: "The mass of the molecule measured in Daltons (Da).",
+                why: "Larger molecules suffer from lower passive membrane permeability and higher metabolic clearance.",
+                target: "Hit-to-Lead MW < 400 Da | Lead Optimization MW < 500 Da."
+            },
+            tpsa: {
+                title: "Topological Polar Surface Area (TPSA)",
+                what: "The sum of polar atom surfaces (oxygen, nitrogen, attached hydrogens) in angstroms squared (Å²).",
+                why: "TPSA > 140 Å² reduces intestinal absorption. TPSA > 90 Å² prevents Blood-Brain Barrier passage.",
+                target: "Oral non-CNS: 60 - 120 Å² | CNS-Active: 40 - 90 Å²."
+            },
+            hbd: {
+                title: "Hydrogen Bond Donors (HBD)",
+                what: "Count of -OH and -NH groups in the molecule.",
+                why: "Desolvating HBD groups requires high free energy, severely hindering membrane permeability.",
+                target: "HBD <= 2 (Ideal for oral/CNS absorption)."
+            },
+            pkInfo: {
+                title: "Pharmacokinetics (PK) & Bioavailability (%F)",
+                what: "PK describes how the body processes the drug over time (Absorption, Distribution, Metabolism, Excretion - ADME).",
+                why: "Determines whether an oral pill can reach effective therapeutic concentrations in target tissues.",
+                target: "Oral Bioavailability %F > 40% | Half-life t1/2 supporting QD (once-daily) dosing."
+            },
+            safetyInfo: {
+                title: "Preclinical Safety & Cardiac Risk",
+                what: "Toxicology evaluation evaluating hERG ion channel blockage, Ames genotoxicity, and non-rodent NOAEL safety margins.",
+                why: "Safety liabilities are the primary cause of FDA clinical holds and drug recalls.",
+                target: "hERG IC50 safety margin > 30x over therapeutic Cmax | Negative Ames test."
+            },
+            herg: {
+                title: "hERG Potassium Channel Liability",
+                what: "Inhibition of cardiac hERG potassium channels, which causes QT interval prolongation and fatal arrhythmia (Torsades de Pointes).",
+                why: "FDA regulatory guidelines (ICH S7B) strictly mandate hERG safety screening.",
+                target: "hERG IC50 > 10 μM (Safety margin > 30-100x over therapeutic Cmax)."
+            },
+            noael: {
+                title: "NOAEL (No Observed Adverse Effect Level)",
+                what: "The highest tested dose in animal tox studies that produces no statistically significant adverse toxic effects.",
+                why: "Used with allometric species scaling to calculate the maximum safe starting dose for First-In-Human Phase 1 trials.",
+                target: "NOAEL providing >= 10x safety factor over Human Equivalent Dose (HED)."
+            },
+            radarInfo: {
+                title: "Multi-Property Optimization (MPO)",
+                what: "Simultaneous optimization of potency, solubility, permeability, clearance, and safety.",
+                why: "Drug discovery fails when optimizing potency alone. MPO balances all properties in parallel.",
+                target: "Balanced radar polygon without weak apexes."
+            }
+        };
+
+        function showInfoModal(conceptKey) {
+            const data = infoData[conceptKey];
+            if (!data) return;
+
+            document.getElementById('info-title').innerText = data.title;
+            document.getElementById('info-what').innerText = data.what;
+            document.getElementById('info-why').innerText = data.why;
+            document.getElementById('info-target').innerText = data.target;
+
+            document.getElementById('info-modal').classList.remove('hidden');
+        }
+
+        function closeInfoModal() {
+            document.getElementById('info-modal').classList.add('hidden');
+        }
+
+        const tourSteps = [
+            {
+                elementId: "tour-campaign-select",
+                title: "1. Select Therapeutic Area",
+                text: "Switch between 5 distinct body system campaigns (CNS, Oncology, Cardio/Renal, Immunology, Infectious) each with unique target profiles and druggability rules."
+            },
+            {
+                elementId: "tour-pipeline-stepper",
+                title: "2. 5-Stage Preclinical Pipeline",
+                text: "Guide candidates step-by-step through Target ID, High-Throughput Screening, Hit-to-Lead Chemistry, DMPK Simulation, and Preclinical Safety."
+            },
+            {
+                elementId: "tour-stage3-sliders",
+                title: "3. Interactive Chemistry Sandbox",
+                text: "In Stage 3, adjust LogP, MW, and TPSA sliders to watch real-time updates on nM potency curves and Lipinski parameters."
+            },
+            {
+                elementId: "tour-radar-chart",
+                title: "4. Multi-Property Optimization Radar",
+                text: "Ensure you don't make the molecule too lipophilic or insoluble while chasing potency."
+            },
+            {
+                elementId: "tour-pk-chart",
+                title: "5. Live PK Concentration Curves",
+                text: "In Stage 4, model oral bioavailability (%F) and verify that plasma concentration stays above target EC90 for 24 hours."
+            }
+        ];
+
+        let currentTourIndex = 0;
+
+        function startGuidedTour() {
+            currentTourIndex = 0;
+            document.getElementById('tour-overlay').classList.remove('hidden');
+            renderTourStep();
+        }
+
+        function renderTourStep() {
+            const step = tourSteps[currentTourIndex];
+            document.getElementById('tour-step-count').innerText = `Step {currentTourIndex + 1} of {tourSteps.length}`;
+            document.getElementById('tour-title').innerText = step.title;
+            document.getElementById('tour-text').innerText = step.text;
+
+            // Remove previous highlights
+            document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight'));
+
+            // Highlight target element
+            const targetEl = document.getElementById(step.elementId);
+            if (targetEl) {
+                targetEl.classList.add('tour-highlight');
+                targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            document.getElementById('tour-prev-btn').disabled = currentTourIndex === 0;
+            document.getElementById('tour-next-btn').innerText = currentTourIndex === tourSteps.length - 1 ? "Finish Tour" : "Next Step";
+        }
+
+        function nextTourStep() {
+            if (currentTourIndex < tourSteps.length - 1) {
+                currentTourIndex++;
+                renderTourStep();
+            } else {
+                endTour();
+            }
+        }
+
+        function prevTourStep() {
+            if (currentTourIndex > 0) {
+                currentTourIndex--;
+                renderTourStep();
+            }
+        }
+
+        function endTour() {
+            document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight'));
+            document.getElementById('tour-overlay').classList.add('hidden');
+        }
     </script>
 </body>
 </html>
