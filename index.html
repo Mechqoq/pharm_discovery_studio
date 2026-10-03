@@ -148,7 +148,7 @@
             <div id="tour-kpi-bar" class="flex items-center gap-4 border-t lg:border-t-0 lg:border-l border-slate-800 pt-3 lg:pt-0 lg:pl-6 text-xs">
                 <div>
                     <span class="text-slate-400 block text-[10px] uppercase tracking-wider font-semibold">R&D Budget spent</span>
-                    <span id="budget-display" class="font-mono text-emerald-400 font-bold text-sm">0.45M / 3.50M</span>
+                    <span id="budget-display" class="font-mono text-emerald-400 font-bold text-sm">$0.45M / $3.50M</span>
                 </div>
                 <div class="h-8 w-px bg-slate-800"></div>
                 <div>
@@ -192,7 +192,7 @@
                                 </div>
                                 <p class="text-[11px] text-slate-400">Assesses genetic dependency and cellular cell-death phenotypes.</p>
                             </div>
-                            <span class="text-[10px] text-brand-400 font-mono mt-3">75k • 1.5 Months</span>
+                            <span class="text-[10px] text-brand-400 font-mono mt-3">$75k • 1.5 Months</span>
                         </label>
 
                         <label class="p-3 border border-slate-700 bg-slate-800/60 rounded-lg cursor-pointer hover:border-brand-500 transition flex flex-col justify-between">
@@ -203,7 +203,7 @@
                                 </div>
                                 <p class="text-[11px] text-slate-400">Cellular Thermal Shift Assay measures target protein thermal stabilization.</p>
                             </div>
-                            <span class="text-[10px] text-brand-400 font-mono mt-3">50k • 1 Month</span>
+                            <span class="text-[10px] text-brand-400 font-mono mt-3">$50k • 1 Month</span>
                         </label>
 
                         <label class="p-3 border border-slate-700 bg-slate-800/60 rounded-lg cursor-pointer hover:border-brand-500 transition flex flex-col justify-between">
@@ -214,7 +214,7 @@
                                 </div>
                                 <p class="text-[11px] text-slate-400">Maps downstream pathway signal cascade alterations.</p>
                             </div>
-                            <span class="text-[10px] text-brand-400 font-mono mt-3">100k • 2 Months</span>
+                            <span class="text-[10px] text-brand-400 font-mono mt-3">$100k • 2 Months</span>
                         </label>
                     </div>
 
@@ -231,7 +231,7 @@
                         </div>
                         <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
                             <h4 class="text-xs font-semibold text-slate-300 mb-2 flex items-center justify-between">
-                                CETSA Thermal Stability (T_m Shift)
+                                CETSA Thermal Stability (T<sub>m</sub> Shift)
                                 <button onclick="showInfoModal('cetsa')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-circle-question"></i></button>
                             </h4>
                             <div class="h-44">
@@ -284,7 +284,7 @@
                         <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg text-xs space-y-2">
                             <span class="font-semibold text-slate-200 block border-b border-slate-800 pb-1">Target Profile Key Insights:</span>
                             <p id="s1-insights" class="text-slate-400 leading-relaxed text-[11px]">
-                                Strong target validation confirmed via high CERES knock-out cell lethality and clear thermal shift (\Delta T_m = +5.2^\circ\text{C}). Pocket geometry shows well-defined lipophilic sub-pockets.
+                                Strong target validation confirmed via high CERES knock-out cell lethality and clear thermal shift (ΔT<sub>m</sub> = +5.2°C). Pocket geometry shows well-defined lipophilic sub-pockets.
                             </p>
                         </div>
                     </div>
@@ -431,7 +431,7 @@
                     </div>
 
                     <p class="text-xs text-slate-300">
-                        Interactively modify chemical lead core descriptors. Observe real-time changes in binding affinity (IC_{50}), aqueous solubility, and Lipophilicity efficiency (LLE).
+                        Interactively modify chemical lead core descriptors. Observe real-time changes in binding affinity (IC<sub>50</sub>), aqueous solubility, and Lipophilicity efficiency (LLE).
                     </p>
 
                     <!-- Sliders Grid -->
@@ -440,7 +440,7 @@
                         <div class="space-y-1.5">
                             <div class="flex justify-between font-medium">
                                 <span class="text-slate-200 flex items-center gap-1">
-                                    Lipophilicity (\text{Log}P)
+                                    Lipophilicity (LogP)
                                     <button onclick="showInfoModal('logp')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-circle-question"></i></button>
                                 </span>
                                 <span id="val-logp" class="font-mono text-brand-400 font-bold">2.80</span>
@@ -457,7 +457,7 @@
                         <div class="space-y-1.5">
                             <div class="flex justify-between font-medium">
                                 <span class="text-slate-200 flex items-center gap-1">
-                                    Molecular Weight (\text{MW})
+                                    Molecular Weight (MW)
                                     <button onclick="showInfoModal('mw')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-circle-question"></i></button>
                                 </span>
                                 <span id="val-mw" class="font-mono text-brand-400 font-bold">380 Da</span>
@@ -474,7 +474,7 @@
                         <div class="space-y-1.5">
                             <div class="flex justify-between font-medium">
                                 <span class="text-slate-200 flex items-center gap-1">
-                                    Polar Surface Area (\text{TPSA})
+                                    Polar Surface Area (TPSA)
                                     <button onclick="showInfoModal('tpsa')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-circle-question"></i></button>
                                 </span>
                                 <span id="val-tpsa" class="font-mono text-cyanBrand-400 font-bold">75 Å²</span>
@@ -509,8 +509,8 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
                             <h4 class="text-xs font-semibold text-slate-300 mb-2 flex items-center justify-between">
-                                4PL Dose-Response IC_{50} Curve
-                                <span id="ic50-display-tag" class="font-mono text-xs text-brand-400 font-bold">IC_{50} = 18\text{ nM}</span>
+                                4PL Dose-Response IC<sub>50</sub> Curve
+                                <span id="IC<sub>50</sub>-display-tag" class="font-mono text-xs text-brand-400 font-bold">IC<sub>50</sub> = 18 nM</span>
                             </h4>
                             <div class="h-52">
                                 <canvas id="doseResponseChart"></canvas>
@@ -536,12 +536,12 @@
 
                         <div class="space-y-3 font-mono text-xs">
                             <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
-                                <span class="text-slate-400 font-sans">Target Potency (IC_{50}):</span>
-                                <span id="m-ic50" class="text-brand-400 font-bold">18 nM</span>
+                                <span class="text-slate-400 font-sans">Target Potency (IC<sub>50</sub>):</span>
+                                <span id="m-IC<sub>50</sub>" class="text-brand-400 font-bold">18 nM</span>
                             </div>
 
                             <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
-                                <span class="text-slate-400 font-sans">Aqueous Solubility (\mu\text{M}):</span>
+                                <span class="text-slate-400 font-sans">Aqueous Solubility (µM):</span>
                                 <span id="m-solubility" class="text-cyanBrand-400 font-bold">145 μM (High)</span>
                             </div>
 
@@ -596,7 +596,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-slate-900 p-4 rounded-xl border border-slate-800 text-xs">
                         <div class="space-y-1.5">
                             <div class="flex justify-between font-medium">
-                                <span class="text-slate-300">Liver Microsomal t_{1/2}</span>
+                                <span class="text-slate-300">Liver Microsomal t<sub>1/2</sub></span>
                                 <span id="val-t12" class="font-mono text-cyanBrand-400 font-bold">45 min</span>
                             </div>
                             <input type="range" id="slider-t12" min="10" max="180" step="5" value="45" oninput="updateStage4()" class="w-full accent-cyanBrand-500 cursor-pointer">
@@ -608,10 +608,10 @@
 
                         <div class="space-y-1.5">
                             <div class="flex justify-between font-medium">
-                                <span class="text-slate-300">Caco-2 P_{app} (\times 10^{-6})</span>
-                                <span id="val-papp" class="font-mono text-cyanBrand-400 font-bold">18.5</span>
+                                <span class="text-slate-300">Caco-2 P<sub>app</sub> (× 10<sup>-6</sup>)</span>
+                                <span id="val-P<sub>app</sub>" class="font-mono text-cyanBrand-400 font-bold">18.5</span>
                             </div>
-                            <input type="range" id="slider-papp" min="1" max="50" step="1" value="18" oninput="updateStage4()" class="w-full accent-cyanBrand-500 cursor-pointer">
+                            <input type="range" id="slider-P<sub>app</sub>" min="1" max="50" step="1" value="18" oninput="updateStage4()" class="w-full accent-cyanBrand-500 cursor-pointer">
                             <div class="flex justify-between text-[10px] text-slate-500">
                                 <span>Poor (&lt;2)</span>
                                 <span>High (&gt;15)</span>
@@ -620,7 +620,7 @@
 
                         <div class="space-y-1.5">
                             <div class="flex justify-between font-medium">
-                                <span class="text-slate-300">Unbound Fraction (f_u)</span>
+                                <span class="text-slate-300">Unbound Fraction (fu)</span>
                                 <span id="val-fu" class="font-mono text-cyanBrand-400 font-bold">8.5%</span>
                             </div>
                             <input type="range" id="slider-fu" min="0.5" max="30" step="0.5" value="8.5" oninput="updateStage4()" class="w-full accent-cyanBrand-500 cursor-pointer">
@@ -650,22 +650,22 @@
 
                         <div class="space-y-3 font-mono text-xs">
                             <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
-                                <span class="text-slate-400 font-sans">Peak Concentration (C_{max}):</span>
-                                <span id="dmpk-cmax" class="text-white font-bold">420 ng/mL</span>
+                                <span class="text-slate-400 font-sans">Peak Concentration (C<sub>max</sub>):</span>
+                                <span id="dmpk-C<sub>max</sub>" class="text-white font-bold">420 ng/mL</span>
                             </div>
 
                             <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
-                                <span class="text-slate-400 font-sans">Total Exposure (AUC_{0-\infty}):</span>
+                                <span class="text-slate-400 font-sans">Total Exposure (AUC<sub>0-∞</sub>):</span>
                                 <span id="dmpk-auc" class="text-cyanBrand-400 font-bold">2,850 ng·h/mL</span>
                             </div>
 
                             <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
-                                <span class="text-slate-400 font-sans">Target Efficacy Coverage (C_{min} > EC_{90}):</span>
+                                <span class="text-slate-400 font-sans">Target Efficacy Coverage (C<sub>min</sub> &gt; EC<sub>90</sub>):</span>
                                 <span id="dmpk-coverage" class="text-emerald-400 font-bold">24 Hours (QD Dosing)</span>
                             </div>
 
                             <div class="flex justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
-                                <span class="text-slate-400 font-sans">CYP3A4 Inhibition IC_{50}:</span>
+                                <span class="text-slate-400 font-sans">CYP3A4 Inhibition IC<sub>50</sub>:</span>
                                 <span id="dmpk-cyp" class="text-amber-400 font-bold">> 25 μM (Low Risk)</span>
                             </div>
                         </div>
@@ -707,7 +707,7 @@
                         <div class="space-y-1.5">
                             <div class="flex justify-between font-medium">
                                 <span class="text-slate-200 flex items-center gap-1">
-                                    Cardiac hERG IC_{50}
+                                    Cardiac hERG IC<sub>50</sub>
                                     <button onclick="showInfoModal('herg')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-circle-question"></i></button>
                                 </span>
                                 <span id="val-herg" class="font-mono text-emerald-400 font-bold">32.0 μM</span>
@@ -788,7 +788,7 @@
                         <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg text-xs space-y-2">
                             <span class="font-semibold text-slate-200 block border-b border-slate-800 pb-1">Safety Risk Summary:</span>
                             <p id="safety-summary-text" class="text-slate-400 text-[11px] leading-relaxed">
-                                Wide safety margin observed over predicted therapeutic C_{max}. Clean genotoxicity profile and high NOAEL allow progression to formal GLP toxicology studies.
+                                Wide safety margin observed over predicted therapeutic C<sub>max</sub>. Clean genotoxicity profile and high NOAEL allow progression to formal GLP toxicology studies.
                             </p>
                         </div>
                     </div>
@@ -841,8 +841,8 @@
                     <div class="md:col-span-3 bg-slate-900 border border-slate-800 rounded-xl p-5 grid grid-cols-3 gap-3 text-center my-auto">
                         <div>
                             <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Total Spent</span>
-                            <span id="rep-budget" class="text-lg font-bold font-mono text-emerald-400">2.45M</span>
-                            <span class="text-[10px] text-slate-500 block">Cap: 3.50M</span>
+                            <span id="rep-budget" class="text-lg font-bold font-mono text-emerald-400">$2.45M</span>
+                            <span class="text-[10px] text-slate-500 block">Cap: $3.50M</span>
                         </div>
                         <div>
                             <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Total Cycle Time</span>
@@ -874,9 +874,9 @@
                                 </thead>
                                 <tbody class="divide-y divide-slate-800 text-slate-300">
                                     <tr>
-                                        <td class="py-2 text-slate-400 font-sans">Potency (IC_{50})</td>
+                                        <td class="py-2 text-slate-400 font-sans">Potency (IC<sub>50</sub>)</td>
                                         <td>&lt; 50 nM</td>
-                                        <td id="rep-tpp-ic50" class="text-brand-400 font-bold">18 nM</td>
+                                        <td id="rep-tpp-IC<sub>50</sub>" class="text-brand-400 font-bold">18 nM</td>
                                         <td class="text-right text-emerald-400"><i class="fa-solid fa-check"></i> Pass</td>
                                     </tr>
                                     <tr>
@@ -1012,7 +1012,7 @@
 
             // Stage 4 DMPK Sliders State
             t12: 45,
-            papp: 18,
+            P<sub>app</sub>: 18,
             fu: 8.5,
 
             // Stage 5 Preclinical Safety Sliders State
@@ -1026,31 +1026,31 @@
                 name: "GABA-A Receptor PAM (CNS)",
                 badge: "CNS System",
                 desc: "Targeting central GABA-A ion channels for severe treatment-resistant anxiety. Requires high Blood-Brain Barrier permeability (LogBB > 0, TPSA < 90 Å²) while minimizing off-target sedation and cardiac hERG channel blockage.",
-                tpp: { ic50: 50, sol: 50, bioavail: 40, herg: 30 }
+                tpp: { IC<sub>50</sub>: 50, sol: 50, bioavail: 40, herg: 30 }
             },
             oncology: {
                 name: "EGFR Kinase Inhibitor (Oncology)",
                 badge: "Oncology",
                 desc: "Selectively targeting mutant EGFR kinase (T790M/L858R) in Non-Small Cell Lung Cancer while avoiding wild-type EGFR cutaneous toxicity and cardiotoxicity.",
-                tpp: { ic50: 20, sol: 80, bioavail: 50, herg: 50 }
+                tpp: { IC<sub>50</sub>: 20, sol: 80, bioavail: 50, herg: 50 }
             },
             cardio: {
                 name: "SGLT2 Transporter Inhibitor (Renal/Cardio)",
                 badge: "Cardio / Renal",
                 desc: "Inhibiting renal proximal tubule sodium-glucose cotransporter-2 for heart failure and glycemic control. Requires balanced renal clearance and low systemic binding.",
-                tpp: { ic50: 30, sol: 100, bioavail: 60, herg: 40 }
+                tpp: { IC<sub>50</sub>: 30, sol: 100, bioavail: 60, herg: 40 }
             },
             immuno: {
                 name: "JAK1 Selective Kinase Inhibitor (Immunology)",
                 badge: "Immunology",
                 desc: "Targeting JAK1 for rheumatoid arthritis. Demands strict selectivity over JAK2 and JAK3 isoforms to avoid erythropoietin signaling suppression and anemia.",
-                tpp: { ic50: 15, sol: 60, bioavail: 45, herg: 30 }
+                tpp: { IC<sub>50</sub>: 15, sol: 60, bioavail: 45, herg: 30 }
             },
             infectious: {
                 name: "Viral Main Protease (Mpro) Inhibitor",
                 badge: "Infectious Disease",
                 desc: "Inhibiting viral substrate processing hydrolase. Demands high cellular permeability, rapid viral load drop, and metabolic stability against liver CYP oxidation.",
-                tpp: { ic50: 25, sol: 120, bioavail: 50, herg: 25 }
+                tpp: { IC<sub>50</sub>: 25, sol: 120, bioavail: 50, herg: 25 }
             }
         };
 
@@ -1076,10 +1076,10 @@
             
             // Hide all stage containers
             for (let i = 1; i <= 5; i++) {
-                const el = document.getElementById(`stage-{i}`);
+                const el = document.getElementById(`stage-${i}`);
                 if (el) el.classList.add('hidden');
                 
-                const btn = document.getElementById(`step-btn-{i}`);
+                const btn = document.getElementById(`step-btn-${i}`);
                 if (btn) {
                     btn.className = "p-2.5 rounded-lg border border-slate-800 bg-slate-800/40 text-slate-400 flex flex-col sm:flex-row items-center justify-center gap-2 transition hover:bg-slate-800";
                     btn.querySelector('span:first-child').className = "w-6 h-6 rounded-full bg-slate-700 text-slate-300 font-bold flex items-center justify-center text-xs";
@@ -1087,10 +1087,10 @@
             }
 
             // Show active stage
-            const activeEl = document.getElementById(`stage-{stageNum}`);
+            const activeEl = document.getElementById(`stage-${stageNum}`);
             if (activeEl) activeEl.classList.remove('hidden');
 
-            const activeBtn = document.getElementById(`step-btn-{stageNum}`);
+            const activeBtn = document.getElementById(`step-btn-${stageNum}`);
             if (activeBtn) {
                 activeBtn.className = "p-2.5 rounded-lg border border-brand-500/50 bg-brand-950/60 text-brand-400 flex flex-col sm:flex-row items-center justify-center gap-2 transition hover:bg-slate-800";
                 activeBtn.querySelector('span:first-child').className = "w-6 h-6 rounded-full bg-brand-500 text-slate-950 font-bold flex items-center justify-center text-xs";
@@ -1128,9 +1128,9 @@
             state.timelineMonths = timeline;
             state.qualityIndex = Math.min(98.5, quality);
 
-            document.getElementById('budget-display').innerText = `{budget.toFixed(2)}M / {state.budgetCap.toFixed(2)}M`;
-            document.getElementById('quality-display').innerText = `{state.qualityIndex.toFixed(1)} / 100`;
-            document.getElementById('timeline-display').innerText = `Month {timeline} / {state.timelineCap}`;
+            document.getElementById('budget-display').innerText = `$${budget.toFixed(2)}M / $${state.budgetCap.toFixed(2)}M`;
+            document.getElementById('quality-display').innerText = `${state.qualityIndex.toFixed(1)} / 100`;
+            document.getElementById('timeline-display').innerText = `Month ${timeline} / ${state.timelineCap}`;
         }
 
         function initCharts() {
@@ -1384,8 +1384,8 @@
             const hasPhospho = document.getElementById('assay-phospho').checked;
 
             let bioScore = 60 + (hasCrispr ? 15 : 0) + (hasCetsa ? 13 : 0) + (hasPhospho ? 10 : 0);
-            document.getElementById('s1-bio-val').innerText = `{bioScore}%`;
-            document.getElementById('s1-bio-bar').style.width = `{bioScore}%`;
+            document.getElementById('s1-bio-val').innerText = `${bioScore}%`;
+            document.getElementById('s1-bio-bar').style.width = `${bioScore}%`;
 
             if (cetsaChart) {
                 cetsaChart.data.datasets[0].data = hasCetsa ? [100, 95, 82, 64, 38, 12] : [100, 80, 48, 20, 5, 0];
@@ -1405,9 +1405,9 @@
             let confirmed = rawHits - artifacts;
 
             document.getElementById('funnel-screened').innerText = libSize.toLocaleString();
-            document.getElementById('funnel-rawhits').innerText = `{rawHits.toLocaleString()} ({(rawRatio*100).toFixed(2)}%)`;
-            document.getElementById('funnel-artifacts').innerText = `-{artifacts.toLocaleString()}`;
-            document.getElementById('funnel-confirmed').innerText = `{confirmed.toLocaleString()} Chemotypes`;
+            document.getElementById('funnel-rawhits').innerText = `${rawHits.toLocaleString()} (${(rawRatio*100).toFixed(2)}%)`;
+            document.getElementById('funnel-artifacts').innerText = `-${artifacts.toLocaleString()}`;
+            document.getElementById('funnel-confirmed').innerText = `${confirmed.toLocaleString()} Chemotypes`;
         }
 
         function updateStage3() {
@@ -1419,42 +1419,42 @@
 
             // Display UI
             document.getElementById('val-logp').innerText = state.logP.toFixed(2);
-            document.getElementById('val-mw').innerText = `{state.mw} Da`;
-            document.getElementById('val-tpsa').innerText = `{state.tpsa} Å²`;
-            document.getElementById('val-hbd').innerText = `{state.hbd} HBD`;
+            document.getElementById('val-mw').innerText = `${state.mw} Da`;
+            document.getElementById('val-tpsa').innerText = `${state.tpsa} Å²`;
+            document.getElementById('val-hbd').innerText = `${state.hbd} HBD`;
 
-            // Compute Potency (IC50 nM)
+            // Compute Potency (IC<sub>50</sub> nM)
             let optimalLogP = (state.activeCampaignKey === 'cns') ? 2.5 : 3.0;
             let logPDiff = Math.abs(state.logP - optimalLogP);
             let mwFactor = (state.mw > 500) ? (state.mw - 500) * 0.2 : 0;
-            let ic50 = Math.round(Math.max(2, 10 * Math.pow(1.8, logPDiff) + mwFactor));
+            let IC<sub>50</sub> = Math.round(Math.max(2, 10 * Math.pow(1.8, logPDiff) + mwFactor));
 
             // Compute Solubility
             let solubility = Math.round(Math.max(5, 350 / Math.pow(10, state.logP - 2.5)));
-            let lle = (9 - Math.log10(ic50 * 1e-9) - state.logP).toFixed(2);
+            let lle = (9 - Math.log10(IC<sub>50</sub> * 1e-9) - state.logP).toFixed(2);
 
             // CNS MPO Score Calculation
             let cnsMpo = (state.logP <= 3 ? 1 : 0.4) + (state.mw <= 360 ? 1 : 0.5) + (state.tpsa >= 40 && state.tpsa <= 90 ? 1 : 0.3) + (state.hbd <= 0.5 ? 1 : 0.2);
 
-            document.getElementById('ic50-display-tag').innerText = `IC50 = {ic50} nM`;
-            document.getElementById('m-ic50').innerText = `{ic50} nM`;
-            document.getElementById('m-solubility').innerText = `{solubility} μM`;
-            document.getElementById('m-lle').innerText = `{lle}`;
-            document.getElementById('m-cnsmpo').innerText = `{cnsMpo.toFixed(1)} / 6.0`;
+            document.getElementById('IC<sub>50</sub>-display-tag').innerText = `IC<sub>50</sub> = ${IC<sub>50</sub>} nM`;
+            document.getElementById('m-IC<sub>50</sub>').innerText = `${IC<sub>50</sub>} nM`;
+            document.getElementById('m-solubility').innerText = `${solubility} μM`;
+            document.getElementById('m-lle').innerText = `${lle}`;
+            document.getElementById('m-cnsmpo').innerText = `${cnsMpo.toFixed(1)} / 6.0`;
 
             // Update Dose Response Chart
             if (doseResponseChart) {
-                let p1 = Math.min(99, Math.max(1, 100 / (1 + Math.pow(ic50 / 0.1, 1))));
-                let p2 = Math.min(99, Math.max(1, 100 / (1 + Math.pow(ic50 / 1.0, 1))));
-                let p3 = Math.min(99, Math.max(1, 100 / (1 + Math.pow(ic50 / 10.0, 1))));
-                let p4 = Math.min(99, Math.max(1, 100 / (1 + Math.pow(ic50 / 100.0, 1))));
+                let p1 = Math.min(99, Math.max(1, 100 / (1 + Math.pow(IC<sub>50</sub> / 0.1, 1))));
+                let p2 = Math.min(99, Math.max(1, 100 / (1 + Math.pow(IC<sub>50</sub> / 1.0, 1))));
+                let p3 = Math.min(99, Math.max(1, 100 / (1 + Math.pow(IC<sub>50</sub> / 10.0, 1))));
+                let p4 = Math.min(99, Math.max(1, 100 / (1 + Math.pow(IC<sub>50</sub> / 100.0, 1))));
                 doseResponseChart.data.datasets[0].data = [p1, p2, p3, p4, 96, 99];
                 doseResponseChart.update();
             }
 
             // Update Radar
             if (mpoRadarChart) {
-                let potScore = Math.min(100, Math.max(10, 100 - (ic50 / 2)));
+                let potScore = Math.min(100, Math.max(10, 100 - (IC<sub>50</sub> / 2)));
                 let solScore = Math.min(100, Math.max(10, solubility / 2));
                 let permScore = Math.min(100, Math.max(10, (state.tpsa < 120 ? 85 : 40)));
                 mpoRadarChart.data.datasets[0].data = [potScore, solScore, permScore, 75, 88];
@@ -1464,22 +1464,22 @@
 
         function updateStage4() {
             state.t12 = parseInt(document.getElementById('slider-t12').value);
-            state.papp = parseInt(document.getElementById('slider-papp').value);
-            state.fu = parseFloat(document.getElementById('slider-fu').value);
+            state.P<sub>app</sub> = parseInt(document.getElementById('slider-P<sub>app</sub>').value);
+            state.f<sub>u</sub> = parseFloat(document.getElementById('slider-fu').value);
 
-            document.getElementById('val-t12').innerText = `{state.t12} min`;
-            document.getElementById('val-papp').innerText = `{state.papp} x10^-6`;
-            document.getElementById('val-fu').innerText = `{state.fu}%`;
+            document.getElementById('val-t12').innerText = `${state.t12} min`;
+            document.getElementById('val-P<sub>app</sub>').innerText = `${state.P<sub>app</sub>} x10^-6`;
+            document.getElementById('val-fu').innerText = `${state.fu}%`;
 
-            let bioavail = Math.min(95, Math.round((state.papp / 25) * 60 + (state.t12 / 180) * 30));
-            let cmax = Math.round(250 * (bioavail / 50));
+            let bioavail = Math.min(95, Math.round((state.P<sub>app</sub> / 25) * 60 + (state.t12 / 180) * 30));
+            let C<sub>max</sub> = Math.round(250 * (bioavail / 50));
 
-            document.getElementById('pk-bioavail-tag').innerText = `Bioavailability %F = {bioavail}%`;
-            document.getElementById('dmpk-cmax').innerText = `{cmax} ng/mL`;
-            document.getElementById('dmpk-auc').innerText = `{Math.round(cmax * 6.8)} ng·h/mL`;
+            document.getElementById('pk-bioavail-tag').innerText = `Bioavailability %F = ${bioavail}%`;
+            document.getElementById('dmpk-C<sub>max</sub>').innerText = `${C<sub>max</sub>} ng/mL`;
+            document.getElementById('dmpk-auc').innerText = `${Math.round(C<sub>max</sub> * 6.8)} ng·h/mL`;
 
             if (pkCurveChart) {
-                pkCurveChart.data.datasets[0].data = [0, cmax, Math.round(cmax * 0.9), Math.round(cmax * 0.65), Math.round(cmax * 0.4), Math.round(cmax * 0.25), Math.round(cmax * 0.15), Math.round(cmax * 0.08)];
+                pkCurveChart.data.datasets[0].data = [0, C<sub>max</sub>, Math.round(C<sub>max</sub> * 0.9), Math.round(C<sub>max</sub> * 0.65), Math.round(C<sub>max</sub> * 0.4), Math.round(C<sub>max</sub> * 0.25), Math.round(C<sub>max</sub> * 0.15), Math.round(C<sub>max</sub> * 0.08)];
                 pkCurveChart.update();
             }
         }
@@ -1488,17 +1488,17 @@
             state.herg = parseInt(document.getElementById('slider-herg').value);
             state.noael = parseInt(document.getElementById('slider-noael').value);
 
-            document.getElementById('val-herg').innerText = `{state.herg}.0 μM`;
-            document.getElementById('val-noael').innerText = `{state.noael} mg/kg`;
+            document.getElementById('val-herg').innerText = `${state.herg}.0 μM`;
+            document.getElementById('val-noael').innerText = `${state.noael} mg/kg`;
 
             let margin = Math.round((state.herg * 1000) / 18);
-            document.getElementById('herg-margin-tag').innerText = `Safety Margin: {margin}x ({margin > 300 ? 'Optimal' : 'Caution'})`;
+            document.getElementById('herg-margin-tag').innerText = `Safety Margin: ${margin}x (${margin > 300 ? 'Optimal' : 'Caution'})`;
 
             let hed = (state.noael / 6.2).toFixed(1);
             let fih = (hed / 10).toFixed(1);
 
-            document.getElementById('fih-hed').innerText = `{hed} mg/kg/day`;
-            document.getElementById('fih-start').innerText = `{fih} mg/day (10x Safety Factor)`;
+            document.getElementById('fih-hed').innerText = `${hed} mg/kg/day`;
+            document.getElementById('fih-start').innerText = `${fih} mg/day (10x Safety Factor)`;
 
             if (hergTraceChart) {
                 let isHighRisk = state.herg < 5;
@@ -1509,7 +1509,7 @@
 
         function generateFinalReport() {
             const camp = campaigns[state.activeCampaignKey];
-            document.getElementById('report-campaign-name').innerText = `Target Campaign: {camp.name}`;
+            document.getElementById('report-campaign-name').innerText = `Target Campaign: ${camp.name}`;
 
             // Compute overall performance grade
             let grade = "A+";
@@ -1521,13 +1521,13 @@
             }
 
             document.getElementById('rep-letter-grade').innerText = grade;
-            document.getElementById('rep-score-num').innerText = `Score: {score} / 100`;
+            document.getElementById('rep-score-num').innerText = `Score: ${score} / 100`;
 
             // Scorecard TPP updates
-            document.getElementById('rep-tpp-ic50').innerText = document.getElementById('m-ic50').innerText;
+            document.getElementById('rep-tpp-IC<sub>50</sub>').innerText = document.getElementById('m-IC<sub>50</sub>').innerText;
             document.getElementById('rep-tpp-sol').innerText = document.getElementById('m-solubility').innerText;
             document.getElementById('rep-tpp-f').innerText = document.getElementById('pk-bioavail-tag').innerText.replace('Bioavailability %F = ', '');
-            document.getElementById('rep-tpp-herg').innerText = `{Math.round((state.herg * 1000) / 18)}x`;
+            document.getElementById('rep-tpp-herg').innerText = `${Math.round((state.herg * 1000) / 18)}x`;
 
             document.getElementById('report-modal').classList.remove('hidden');
 
@@ -1605,19 +1605,19 @@
                 title: "Pharmacokinetics (PK) & Bioavailability (%F)",
                 what: "PK describes how the body processes the drug over time (Absorption, Distribution, Metabolism, Excretion - ADME).",
                 why: "Determines whether an oral pill can reach effective therapeutic concentrations in target tissues.",
-                target: "Oral Bioavailability %F > 40% | Half-life t1/2 supporting QD (once-daily) dosing."
+                target: "Oral Bioavailability %F > 40% | Half-life t<sub>1/2</sub> supporting QD (once-daily) dosing."
             },
             safetyInfo: {
                 title: "Preclinical Safety & Cardiac Risk",
                 what: "Toxicology evaluation evaluating hERG ion channel blockage, Ames genotoxicity, and non-rodent NOAEL safety margins.",
                 why: "Safety liabilities are the primary cause of FDA clinical holds and drug recalls.",
-                target: "hERG IC50 safety margin > 30x over therapeutic Cmax | Negative Ames test."
+                target: "hERG IC<sub>50</sub> safety margin > 30x over therapeutic C<sub>max</sub> | Negative Ames test."
             },
             herg: {
                 title: "hERG Potassium Channel Liability",
                 what: "Inhibition of cardiac hERG potassium channels, which causes QT interval prolongation and fatal arrhythmia (Torsades de Pointes).",
                 why: "FDA regulatory guidelines (ICH S7B) strictly mandate hERG safety screening.",
-                target: "hERG IC50 > 10 μM (Safety margin > 30-100x over therapeutic Cmax)."
+                target: "hERG IC<sub>50</sub> > 10 μM (Safety margin > 30-100x over therapeutic C<sub>max</sub>)."
             },
             noael: {
                 title: "NOAEL (No Observed Adverse Effect Level)",
@@ -1687,7 +1687,7 @@
 
         function renderTourStep() {
             const step = tourSteps[currentTourIndex];
-            document.getElementById('tour-step-count').innerText = `Step {currentTourIndex + 1} of {tourSteps.length}`;
+            document.getElementById('tour-step-count').innerText = `Step ${currentTourIndex + 1} of ${tourSteps.length}`;
             document.getElementById('tour-title').innerText = step.title;
             document.getElementById('tour-text').innerText = step.text;
 
